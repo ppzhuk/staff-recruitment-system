@@ -1,6 +1,7 @@
 package recruitment.models;
 
 import org.junit.Test;
+import recruitment.repository.ManagerRepository;
 
 import static org.junit.Assert.assertTrue;
 
@@ -11,7 +12,8 @@ public class ManagerTest {
     
     @Test
     public void test() {
-        
-        //assertTrue(true);
+
+        ManagerRepository repo = new ManagerRepository();
+
     }
 }
