@@ -1,28 +1,39 @@
 package recruitment.models;
 
+import com.sun.istack.internal.Nullable;
+
 /**
  * Created by Nataly on 23.05.2016.
  */
 public class Vacancy {
-    public static final int STATUS_OPEN = 0;
-    public static final int STATUS_CLOSE = 1;
+    public static final int STATUS_OPEN = 1;
+    public static final int STATUS_CLOSE = -1;
 
-
+    private int id;
+    private int employerId;
     private String position;
     private String requirements;
     private double salary;
-    private int status;
+    private int status = STATUS_OPEN;
+    private int applicantResumeId = -1; 
+    
+    public Vacancy(int employerId, String position, String requirements, double salary) {
+        this.employerId = employerId;
+        this.position = position;
+        this.requirements = requirements;
+        this.salary = salary;
+    }
 
     public int getStatus() {
         return status;
     }
 
+    /**
+     * 
+     * @param status Vacancy.STATUS_OPEN, Vacancy.STATUS_CLOSE
+     */
     public void setStatus(int status) {
         this.status = status;
-    }
-
-    public Vacancy() {
-        status = STATUS_OPEN;
     }
 
     public String getPosition() {
@@ -47,5 +58,29 @@ public class Vacancy {
 
     public void setSalary(double salary) {
         this.salary = salary;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setEmployerId(int employerId) {
+        this.employerId = employerId;
+    }
+
+    public int getEmployerId() {
+        return employerId;
+    }
+
+    public int getApplicantResumeId() {
+        return applicantResumeId;
+    }
+
+    public void setApplicantResumeId(int applicantResumeId) {
+        this.applicantResumeId = applicantResumeId;
     }
 }

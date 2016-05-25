@@ -7,23 +7,24 @@ import java.util.List;
  * Created by Pavel on 23.05.2016.
  */
 public class Manager extends Person {
-    private List<Mark> marks;
-    private List<Interview> interviews;
-    private List<Vacancy> closedVacancies;
+    private int id;
 
-    public Manager(String name, String email) {
-        super(name, email);
+    public Manager(int id, Person p) {
+        super(p.getPersonId(), p.getName(), p.getEmail(), p.getLogin(), p.getPassword());  
+        this.id = id;
     }
 
-    public void addInterview(Applicant applicant, Vacancy vacancy, Date date) {
-        interviews.add(new Interview(applicant, vacancy, date));
+    public Manager(int id, String name, String email, String login, String password) {
+        super(name, email, login, password);
+        this.id = id;
+    }
+    
+    
+    public int getManagerId() {
+        return id;
     }
 
-    public void addMark(double mark, String comment, Applicant applicant, Vacancy vacancy) {
-        marks.add(new Mark());
-    }
-
-    public void closeVacancy(Vacancy vacancy) {
-        vacancy.setStatus(Vacancy.STATUS_CLOSE);
+    public void setManagerId(int id) {
+        this.id = id;
     }
 }

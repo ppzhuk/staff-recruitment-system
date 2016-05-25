@@ -9,14 +9,19 @@ import java.util.List;
  * Created by Pavel on 23.05.2016.
  */
 public class Employer extends Person {
+    private int id;
     private String companyName;
     private String description;
     private String cite;
-    private List<Vacancy> vacancies;
 
-    public Employer(String name, String login, String email, String password) {
-        super(name, login, email, password);
-        vacancies = new ArrayList<Vacancy>();
+    public Employer(String name, String email, String login, String password, String companyName) {
+        super(name, email, login, password);
+        this.companyName = companyName;
+    }
+
+    public Employer(int id, Person p) {
+        super(p.getPersonId(), p.getName(), p.getEmail(), p.getLogin(), p.getPassword());
+        this.id = id;
     }
 
     public String getCompanyName() {
@@ -43,12 +48,11 @@ public class Employer extends Person {
         this.cite = cite;
     }
 
-    public void addVacancy() {
-        vacancies.add(new  Vacancy());
+    public int getEmployerId() {
+        return id;
     }
 
-    public void deleteVacancy(Vacancy vacancy) {
-        vacancies.remove(vacancy);
+    public void setEmployerId(int id) {
+        this.id = id;
     }
-
 }
