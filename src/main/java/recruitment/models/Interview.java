@@ -12,20 +12,20 @@ public class Interview {
     
     private int id;
     private int applicantId;
-    private int resumeId;
+    private int vacancyId;
     private Date interviewDate;
     private int result = RESULT_UNDEFINED;
 
-    public Interview(int applicantId, int resumeId, Date interviewDate, int result) {
+    public Interview(int applicantId, int vacancyId, Date interviewDate, int result) {
         this.applicantId = applicantId;
-        this.resumeId = resumeId;
+        this.vacancyId = vacancyId;
         this.interviewDate = interviewDate;
         this.result = result;
     }
 
-    public Interview(int applicantId, int resumeId, Date interviewDate) {
+    public Interview(int applicantId, int vacancyId, Date interviewDate) {
         this.applicantId = applicantId;
-        this.resumeId = resumeId;
+        this.vacancyId = vacancyId;
         this.interviewDate = interviewDate;
     }
 
@@ -37,12 +37,12 @@ public class Interview {
         this.applicantId = applicantId;
     }
 
-    public int getResumeId() {
-        return resumeId;
+    public int getVacancyId() {
+        return vacancyId;
     }
 
-    public void setResumeId(int resumeId) {
-        this.resumeId = resumeId;
+    public void setVacancyId(int vacancyId) {
+        this.vacancyId = vacancyId;
     }
 
     public Date getInterviewDate() {
