@@ -9,9 +9,18 @@ import java.util.List;
  * Created by Pavel on 25.05.2016.
  */
 public class EmployerRepository extends PersonRepository {
+    private static EmployerRepository instance;
+            
     private List<Employer> list;
 
-    public EmployerRepository() {
+    public static EmployerRepository getInstance() {
+        if (instance == null) {
+            instance = new EmployerRepository();
+        }
+        return instance;
+    }
+    
+    private EmployerRepository() {
         super();
         list = new ArrayList<>(3);
         super.getAll().stream()
@@ -21,7 +30,7 @@ public class EmployerRepository extends PersonRepository {
                     Employer e = new Employer(list.size() + 1, p);
                     e.setCompanyName("Company" + e.getEmployerId());
                     e.setDescription("The " + e.getEmployerId() + " best company in the world!");
-                    e.setCite("www.company" + e.getEmployerId() + ".org");
+                    e.setSite("www.company" + e.getEmployerId() + ".org");
                     list.add(e);
                 });
     }
@@ -37,9 +46,11 @@ public class EmployerRepository extends PersonRepository {
     }
 
     @Override
-    public void save(Object o) {
+    public boolean save(Object o) {
         super.save(o);
-        list.add((Employer) o);
+        Employer e = (Employer) o;
+        e.setEmployerId(list.size()+1);
+        return list.add(e);
     }
 
     @Override

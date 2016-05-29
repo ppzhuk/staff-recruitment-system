@@ -4,6 +4,8 @@ package recruitment.models;
  * Created by Pavel on 23.05.2016.
  */
 public class Mark {
+    public static final double SATISFACTORY_MARK = 3.0;
+    
     private int id;
     private int managerId;
     private int evaluatedPersonId;

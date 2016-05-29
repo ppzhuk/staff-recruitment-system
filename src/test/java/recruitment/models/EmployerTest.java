@@ -7,7 +7,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
 public class EmployerTest {
-    EmployerRepository repo = new EmployerRepository();
+    EmployerRepository repo = EmployerRepository.getInstance();
 
     @Test
     public void testGetByLogin() {

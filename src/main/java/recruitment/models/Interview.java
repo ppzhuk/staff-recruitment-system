@@ -1,5 +1,10 @@
 package recruitment.models;
 
+import recruitment.repository.ApplicantRepository;
+import recruitment.repository.EmployerRepository;
+import recruitment.repository.EntityRepository;
+import recruitment.repository.ManagerRepository;
+
 import java.util.Date;
 
 /**
@@ -14,13 +19,14 @@ public class Interview {
     private int applicantId;
     private int vacancyId;
     private Date interviewDate;
-    private int result = RESULT_UNDEFINED;
+    private int resultEmployer = RESULT_UNDEFINED;
+    private int resultApplicant = RESULT_UNDEFINED;
 
     public Interview(int applicantId, int vacancyId, Date interviewDate, int result) {
         this.applicantId = applicantId;
         this.vacancyId = vacancyId;
         this.interviewDate = interviewDate;
-        this.result = result;
+        this.resultEmployer = result;
     }
 
     public Interview(int applicantId, int vacancyId, Date interviewDate) {
@@ -53,16 +59,36 @@ public class Interview {
         this.interviewDate = interviewDate;
     }
 
-    public int getResult() {
-        return result;
+    public int getResultEmployer() {
+        return resultEmployer;
     }
 
     /**
      * 
-     * @param result Interview.RESULT_POSITIVE, Interview.RESULT_NEGATIVE ,Interview.RESULT_UNDEFINED
+     * @param resultEmployer Interview.RESULT_POSITIVE, Interview.RESULT_NEGATIVE ,Interview.RESULT_UNDEFINED
      */
-    public void setResult(int result) {
-        this.result = result;
+    public void setResultEmployer(int resultEmployer) {
+        if (isInterviewPassed()) {
+            this.resultEmployer = resultEmployer;
+        } else {
+            throw new IllegalStateException("You can't set interview result if interview has not yet passed.");
+        }
+    }
+
+    public int getResultApplicant() {
+        return resultApplicant;
+    }
+
+    /**
+     *
+     * @param resultApplicant Interview.RESULT_POSITIVE, Interview.RESULT_NEGATIVE ,Interview.RESULT_UNDEFINED
+     */
+    public void setResultApplicant(int resultApplicant) {
+        if (isInterviewPassed()) {
+            this.resultApplicant = resultApplicant;
+        } else {
+            throw new IllegalStateException("You can't set interview result if interview has not yet passed.");
+        }
     }
 
     public int getId() {
@@ -71,5 +97,32 @@ public class Interview {
 
     public void setId(int id) {
         this.id = id;
+    }
+    
+    public Employer getEmployer() {
+        EmployerRepository employerRepository = EmployerRepository.getInstance();
+        EntityRepository entityRepository = EntityRepository.getInstance();
+
+        Vacancy v = (Vacancy) entityRepository.getById(vacancyId, EntityRepository.VACANCY_TYPE);
+        return employerRepository.getById(v.getEmployerId());
+    }
+
+    public Applicant getApplicant() {
+        ApplicantRepository applicantRepository = ApplicantRepository.getInstance();
+        return applicantRepository.getById(applicantId);
+    }
+    
+    public boolean isInterviewPassed() {
+        return interviewDate.compareTo(new Date()) < 1;
+    }
+    
+    public int getInterviewResult() {
+        int res = RESULT_UNDEFINED;
+        if (resultApplicant == RESULT_POSITIVE && resultEmployer == RESULT_POSITIVE) {
+            res = RESULT_POSITIVE;
+        } else if (resultApplicant == RESULT_NEGATIVE || resultEmployer == RESULT_NEGATIVE) {
+            res = RESULT_NEGATIVE;
+        }
+        return res;
     }
 }

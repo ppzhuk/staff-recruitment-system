@@ -6,9 +6,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ManagerRepository extends PersonRepository {
+    private static ManagerRepository instance;
+    
     private List<Manager> list;
 
-    public ManagerRepository() {
+    public static ManagerRepository getInstance() {
+        if (instance == null) {
+            instance = new ManagerRepository();
+        }
+        return instance;
+    }
+    
+    private  ManagerRepository() {
         super();
         list = new ArrayList<>(3);
         super.getAll().stream()
@@ -27,9 +36,11 @@ public class ManagerRepository extends PersonRepository {
     }
 
     @Override
-    public void save(Object o) {
+    public boolean save(Object o) {
         super.save(o);
-        list.add((Manager) o);
+        Manager m = (Manager) o;
+        m.setManagerId(list.size()+1);
+        return list.add(m);
     }
 
     @Override

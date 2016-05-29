@@ -1,6 +1,6 @@
 package recruitment.models;
 
-import com.sun.istack.internal.Nullable;
+import java.util.Date;
 
 /**
  * Created by Nataly on 23.05.2016.
@@ -15,7 +15,8 @@ public class Vacancy {
     private String requirements;
     private double salary;
     private int status = STATUS_OPEN;
-    private int applicantResumeId = -1; 
+    private int applicantId = -1; 
+    private Date closeDate = null;            
     
     public Vacancy(int employerId, String position, String requirements, double salary) {
         this.employerId = employerId;
@@ -32,8 +33,10 @@ public class Vacancy {
      * 
      * @param status Vacancy.STATUS_OPEN, Vacancy.STATUS_CLOSE
      */
-    public void setStatus(int status) {
+    public void setStatus(int status, int applicantResumeId) {
         this.status = status;
+        this.applicantId = applicantResumeId;
+        this.closeDate = new Date();
     }
 
     public String getPosition() {
@@ -76,11 +79,11 @@ public class Vacancy {
         return employerId;
     }
 
-    public int getApplicantResumeId() {
-        return applicantResumeId;
+    public int getApplicantId() {
+        return applicantId;
     }
 
-    public void setApplicantResumeId(int applicantResumeId) {
-        this.applicantResumeId = applicantResumeId;
+    public Date getCloseDate() {
+        return closeDate;
     }
 }

@@ -10,6 +10,8 @@ import java.util.Date;
 import java.util.List;
 
 public class EntityRepository implements BaseRepository {
+    private static EntityRepository instance;
+    
     public static final int MARK_TYPE = 1;
     public static final int INTERVIEW_TYPE = 2;
     public static final int VACANCY_TYPE = 3;
@@ -20,7 +22,14 @@ public class EntityRepository implements BaseRepository {
     private List<Vacancy> vacancies;
     private List<Resume> resumes;
 
-    public EntityRepository() {
+    public static EntityRepository getInstance() {
+        if (instance == null) {
+            instance = new EntityRepository();
+        }
+        return instance;
+    }
+    
+    private EntityRepository() {
         addMarks();
         addInterviews();
         addVacancies();
@@ -41,6 +50,9 @@ public class EntityRepository implements BaseRepository {
         m.setId(3);
         m.setComment("Ужасно.");
         marks.add(m);
+        m = new Mark(3, 7, 4);
+        m.setId(4);
+        marks.add(m);
     }
 
     private void addInterviews() {
@@ -53,7 +65,7 @@ public class EntityRepository implements BaseRepository {
         interviews.add(i);
         i = new Interview(3, 3, new Date());
         i.setId(3);
-        i.setResult(Interview.RESULT_POSITIVE);
+        i.setResultEmployer(Interview.RESULT_POSITIVE);
         interviews.add(i);
     }
     
@@ -67,7 +79,7 @@ public class EntityRepository implements BaseRepository {
         vacancies.add(v);
         v = new Vacancy(3, "Должность3", "Нет требований", 3.99);
         v.setId(3);
-        v.setStatus(Vacancy.STATUS_CLOSE);
+        v.setStatus(Vacancy.STATUS_CLOSE, 3);
         vacancies.add(v);
     }
 
@@ -99,27 +111,31 @@ public class EntityRepository implements BaseRepository {
         );
         r.setId(3);
         r.setDescription("просто хочу работать");
-        r.setInSearch(false);
+        r.setInSearch(false, 3);
         resumes.add(r);
     }
 
     @Override
-    public void save(Object o) {
+    public boolean save(Object o) {
         if (o instanceof Mark) {
-            marks.add((Mark) o);
-            return;
+            Mark m = (Mark) o;
+            m.setId(marks.size()+1);
+            return marks.add(m); 
         }
         if (o instanceof Interview) {
-            interviews.add((Interview)o);
-            return;
+            Interview i = (Interview)o;
+            i.setId(interviews.size()+1);
+            return interviews.add(i);
         }
         if (o instanceof Vacancy) {
-            vacancies.add((Vacancy) o);
-            return;
+            Vacancy v = (Vacancy) o;
+            v.setId(vacancies.size()+1);
+            return vacancies.add(v);
         }
         if (o instanceof Resume) {
-            resumes.add((Resume)o);
-            return;
+            Resume r = (Resume)o;
+            r.setId(resumes.size()+1);
+            return resumes.add(r);
         }
         throw new IllegalArgumentException();
     }
@@ -154,9 +170,27 @@ public class EntityRepository implements BaseRepository {
                 throw new IllegalArgumentException();
         }
     }
-    
-    
-    
+
+    @Override
+    public void remove(int id, int type) {
+        switch (type) {
+            case MARK_TYPE:
+                marks.remove(id-1);
+                break;
+            case VACANCY_TYPE:
+                vacancies.remove(id-1);
+                break;
+            case INTERVIEW_TYPE:
+                interviews.remove(id-1);
+                break;
+            case RESUME_TYPE:
+                resumes.remove(id-1);
+                break;
+            default:
+                throw new IllegalArgumentException();
+        }
+    }
+
     @Override
     public List<Mark> getAll() {
         throw new RuntimeException("use getById(id, entityType) instead");

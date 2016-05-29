@@ -6,9 +6,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ApplicantRepository extends PersonRepository {
+    private static ApplicantRepository instance;
+
     private List<Applicant> list;
 
-    public ApplicantRepository() {
+    public static ApplicantRepository getInstance() {
+        if (instance == null) {
+            instance = new ApplicantRepository();
+        }
+        return instance;
+    }
+    
+    private  ApplicantRepository() {
         super();
         list = new ArrayList<>(3);
         super.getAll().stream()
@@ -27,9 +36,11 @@ public class ApplicantRepository extends PersonRepository {
     }
 
     @Override
-    public void save(Object o) {
+    public boolean save(Object o) {
         super.save(o);
-        list.add((Applicant) o);
+        Applicant a = (Applicant) o;
+        a.setApplicantId(list.size()+1);
+        return list.add(a);
     }
 
     @Override

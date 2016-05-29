@@ -7,7 +7,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class PersonTest {
-    PersonRepository repo = new PersonRepository();
+    PersonRepository repo = PersonRepository.getInstance();
     
     @Test
     public void testGetByLogin() {
@@ -19,5 +19,11 @@ public class PersonTest {
     public void testGetById() {
         Person p = repo.getById(7);
         assertEquals("Соискатель1 Соискатель Соискатель", p.getName());
+    }
+
+    @Test
+    public void marksTest() {
+        Person p = repo.getById(7);        
+        assertEquals(3.5, p.getAverageMark(), 0.001);
     }
 }

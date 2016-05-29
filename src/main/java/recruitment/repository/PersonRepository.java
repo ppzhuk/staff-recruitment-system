@@ -7,10 +7,18 @@ import java.util.List;
 import java.util.Optional;
 
 public class PersonRepository implements BaseRepository {
-
+    private static PersonRepository instance;
+    
     private List<Person> list;
 
-    public PersonRepository() {
+    public static PersonRepository getInstance() {
+        if (instance == null) {
+            instance = new PersonRepository();
+        }
+        return instance;
+    }
+    
+    protected PersonRepository() {
         list = new ArrayList<>(9);
         list.add(new Person(1, "Менеджер1 Менеджер Менеджер", "mngr1@mail.ru", "manager1", "manager1"));
         list.add(new Person(2, "Менеджер2 Менеджер Менеджер", "mngr2@mail.ru", "manager2", "manager2"));
@@ -38,8 +46,10 @@ public class PersonRepository implements BaseRepository {
     }
 
     @Override
-    public void save(Object o) {
-        list.add((Person) o);
+    public boolean save(Object o) {
+        Person p = (Person) o;
+        p.setPersonId(list.size()+1);
+        return list.add(p);
     }
 
     @Override

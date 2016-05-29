@@ -10,7 +10,7 @@ import static org.junit.Assert.assertEquals;
  * Created by Pavel on 25.05.2016.
  */
 public class EntityTest {
-    EntityRepository repo = new EntityRepository();
+    EntityRepository repo = EntityRepository.getInstance();
     
     @Test
     public void testGetById() {

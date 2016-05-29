@@ -3,7 +3,7 @@ package recruitment.models;
 /**
  * Created by Nataly on 23.05.2016.
  */
-public class Resume {    
+public class Resume {
     private int id;
     private int applicantId;
     private String experience;
@@ -12,7 +12,7 @@ public class Resume {
     private String description;
     private boolean inSearch = true;
     private int employerVacancyId = -1;
-
+    
     public Resume(int applicantId, String experience, String skills, String education) {
         this.applicantId = applicantId;
         this.experience = experience;
@@ -80,15 +80,14 @@ public class Resume {
         return inSearch;
     }
 
-    public void setInSearch(boolean inSearch) {
+    public void setInSearch(boolean inSearch, int employerVacancyId) {
         this.inSearch = inSearch;
+        this.employerVacancyId = employerVacancyId;
     }
 
     public int getEmployerVacancyId() {
         return employerVacancyId;
     }
-
-    public void setEmployerVacancyId(int employerVacancyId) {
-        this.employerVacancyId = employerVacancyId;
-    }
+    
+    
 }

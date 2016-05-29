@@ -1,9 +1,6 @@
 package recruitment.models;
 
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import recruitment.repository.EntityRepository;
 
 /**
  * Created by Pavel on 23.05.2016.
@@ -12,7 +9,7 @@ public class Employer extends Person {
     private int id;
     private String companyName;
     private String description;
-    private String cite;
+    private String site;
 
     public Employer(String name, String email, String login, String password, String companyName) {
         super(name, email, login, password);
@@ -40,12 +37,12 @@ public class Employer extends Person {
         this.description = description;
     }
 
-    public String getCite() {
-        return cite;
+    public String getSite() {
+        return site;
     }
 
-    public void setCite(String cite) {
-        this.cite = cite;
+    public void setSite(String site) {
+        this.site = site;
     }
 
     public int getEmployerId() {
@@ -54,5 +51,16 @@ public class Employer extends Person {
 
     public void setEmployerId(int id) {
         this.id = id;
+    }
+    
+    public boolean createVacancy(int employerId, String position, String requirements, double salary) {
+        EntityRepository repo = EntityRepository.getInstance();
+        return repo.save(new Vacancy(employerId, position, requirements, salary));
+    }
+    
+    public void closeVacancy(int vacancyId, int applicantId) {
+        EntityRepository repo = EntityRepository.getInstance();
+        Vacancy v = (Vacancy)repo.getById(vacancyId, EntityRepository.VACANCY_TYPE);
+        v.setStatus(Vacancy.STATUS_CLOSE, applicantId);
     }
 }

@@ -1,5 +1,7 @@
 package recruitment.models;
 
+import recruitment.repository.EntityRepository;
+
 /**
  * Created by Pavel on 23.05.2016.
  */
@@ -7,6 +9,7 @@ public class Person {
     private int id;
     private String name;
     private String email;
+    private String phoneNumber;
     private String login;
     private String password;
 
@@ -66,5 +69,32 @@ public class Person {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+    
+    public double getAverageMark() {
+        EntityRepository repo = EntityRepository.getInstance();
+        double mark[] = new double[1];
+        mark[0] = 0;
+        int count[] = new int[1];
+        count[0] = 0;
+        repo.getAll(EntityRepository.MARK_TYPE)
+                .stream()
+                .filter(m -> ((Mark)m).getEvaluatedPersonId() == id)
+                .forEach(m -> {
+                    mark[0] += ((Mark)m).getMark();
+                    count[0] += 1;
+                });
+        if (count[0] == 0) {
+            return 5;
+        }
+        return mark[0]/count[0];
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }
