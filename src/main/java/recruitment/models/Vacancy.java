@@ -1,13 +1,16 @@
 package recruitment.models;
 
+import java.text.FieldPosition;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
  * Created by Nataly on 23.05.2016.
  */
 public class Vacancy {
-    public static final int STATUS_OPEN = 1;
-    public static final int STATUS_CLOSE = -1;
+    public static final int STATUS_OPEN = -1;
+    public static final int STATUS_CLOSE = 1;
+    public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy.MM.dd");
 
     private int id;
     private int employerId;
@@ -16,7 +19,7 @@ public class Vacancy {
     private double salary;
     private int status = STATUS_OPEN;
     private int applicantId = -1; 
-    private Date closeDate = null;            
+    private String closeDate = null;            
     
     public Vacancy(int employerId, String position, String requirements, double salary) {
         this.employerId = employerId;
@@ -35,8 +38,12 @@ public class Vacancy {
      */
     public void setStatus(int status, int applicantResumeId) {
         this.status = status;
-        this.applicantId = applicantResumeId;
-        this.closeDate = new Date();
+        this.applicantId = status == STATUS_OPEN ? -1 : applicantResumeId;
+        this.closeDate = Vacancy.DATE_FORMAT.format(
+                new Date(),
+                new StringBuffer(),
+                new FieldPosition(0)
+        ).toString();
     }
 
     public String getPosition() {
@@ -83,7 +90,11 @@ public class Vacancy {
         return applicantId;
     }
 
-    public Date getCloseDate() {
+    public void setCloseDate(String closeDate) {
+        this.closeDate = closeDate;
+    }
+
+    public String getCloseDate() {
         return closeDate;
     }
 }

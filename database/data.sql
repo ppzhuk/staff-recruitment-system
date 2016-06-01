@@ -1,4 +1,4 @@
-﻿use recruitment;
+USE recruitment;
 
 INSERT INTO `recruitment`.`person` (name, email, login, password) VALUES ("Менеджер1 Менеджер Менеджер", "mngr1@mail.ru", "manager1", "manager1");
 INSERT INTO `recruitment`.`person` (name, email, login, password) VALUES ("Менеджер2 Менеджер Менеджер", "mngr2@mail.ru", "manager2", "manager2");
@@ -28,8 +28,8 @@ INSERT INTO `recruitment`.`mark` (manager_id, evaluated_person_id, mark, comment
 INSERT INTO `recruitment`.`mark` (manager_id, evaluated_person_id, mark) VALUES (1, 7, 4);
 
 INSERT INTO `recruitment`.`vacancy` (employer_id, position, requirments, salary) VALUES (1, "Должность1", "Какие-то требования", 100000);
-INSERT INTO `recruitment`.`vacancy` (employer_id, position, requirments, salary) VALUES (1, "Должность2", "Какие-то очень жесткие требования", 999999);
-INSERT INTO `recruitment`.`vacancy` (employer_id, position, requirments, salary, status, applicant_id, closeDate) VALUES (1, "Должность3", "Нет требований", 3.99, 1, 3, "2016.02.01");
+INSERT INTO `recruitment`.`vacancy` (employer_id, position, requirments, salary) VALUES (2, "Должность2", "Какие-то очень жесткие требования", 999999);
+INSERT INTO `recruitment`.`vacancy` (employer_id, position, requirments, salary, status, applicant_id, closeDate) VALUES (3, "Должность3", "Нет требований", 3.99, 1, 3, "2016.02.01");
 
 INSERT INTO `recruitment`.`interview` (applicant_id, vacancy_id, date) VALUES (1, 1, "2016.06.11");
 INSERT INTO `recruitment`.`interview` (applicant_id, vacancy_id, date) VALUES (2, 2, "2016.06.07");

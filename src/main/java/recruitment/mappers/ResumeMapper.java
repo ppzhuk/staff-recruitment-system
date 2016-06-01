@@ -1,7 +1,6 @@
 package recruitment.mappers;
 
 import org.sql2o.Connection;
-import recruitment.models.Mark;
 import recruitment.models.Resume;
 
 import java.util.HashMap;
@@ -60,7 +59,11 @@ public class ResumeMapper extends BaseMapper implements DataMapper<Resume> {
                     .addParameter("education", resume.getEducation())
                     .addParameter("description", resume.getDescription())
                     .addParameter("in_search", resume.isInSearch())
-                    .addParameter("vacancy_id", resume.getEmployerVacancyId())
+                    .addParameter("vacancy_id",
+                            resume.getEmployerVacancyId() == -1
+                                    ? null
+                                    : resume.getEmployerVacancyId()
+                    )
                     .executeUpdate()
                     .getKey();
         }
@@ -70,7 +73,7 @@ public class ResumeMapper extends BaseMapper implements DataMapper<Resume> {
     public void update(Resume resume) {
         String sql =
                 "UPDATE resume SET applicant_id=:applicant_id, experience=:experience, skills=:skills, education=:education, " +
-                       "description=:description, in_search=:in_search, vacancy_id=:vacancy_id" +
+                        "description=:description, in_search=:in_search, vacancy_id=:vacancy_id" +
                         " WHERE id=:id";
 
         try (Connection con = sql2o.open()) {
@@ -81,7 +84,11 @@ public class ResumeMapper extends BaseMapper implements DataMapper<Resume> {
                     .addParameter("education", resume.getEducation())
                     .addParameter("description", resume.getDescription())
                     .addParameter("in_search", resume.isInSearch())
-                    .addParameter("vacancy_id", resume.getEmployerVacancyId())
+                    .addParameter("vacancy_id",
+                            resume.getEmployerVacancyId() == -1
+                                    ? null
+                                    : resume.getEmployerVacancyId()
+                    )
                     .addParameter("id", resume.getId())
                     .executeUpdate();
         }
