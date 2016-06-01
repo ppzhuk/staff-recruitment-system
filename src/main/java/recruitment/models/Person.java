@@ -13,8 +13,6 @@ public class Person {
     private String login;
     private String password;
 
-    public Person() {
-    }
 
     public Person(String name, String email, String login, String password) {
         this.name = name;

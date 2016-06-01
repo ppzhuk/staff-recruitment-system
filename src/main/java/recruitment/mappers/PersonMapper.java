@@ -81,6 +81,10 @@ public class PersonMapper extends BaseMapper implements DataMapper<Person> {
 
     @Override
     public void delete(Person p) {
+
+        // TODO delete all relevant entries from others tables before that
+        // marks manager employer applicant
+        
         String sql =
                 "DELETE FROM person " +
                         "WHERE id=:id";
