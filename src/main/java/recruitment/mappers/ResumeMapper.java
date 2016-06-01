@@ -67,12 +67,36 @@ public class ResumeMapper extends BaseMapper implements DataMapper<Resume> {
     }
 
     @Override
-    public void update(Resume o) {
+    public void update(Resume resume) {
+        String sql =
+                "UPDATE resume SET applicant_id=:applicant_id, experience=:experience, skills=:skills, education=:education, " +
+                       "description=:description, in_search=:in_search, vacancy_id=:vacancy_id" +
+                        " WHERE id=:id";
 
+        try (Connection con = sql2o.open()) {
+            con.createQuery(sql)
+                    .addParameter("applicant_id", resume.getApplicantId())
+                    .addParameter("experience", resume.getExperience())
+                    .addParameter("skills", resume.getSkills())
+                    .addParameter("education", resume.getEducation())
+                    .addParameter("description", resume.getDescription())
+                    .addParameter("in_search", resume.isInSearch())
+                    .addParameter("vacancy_id", resume.getEmployerVacancyId())
+                    .addParameter("id", resume.getId())
+                    .executeUpdate();
+        }
     }
 
     @Override
     public void delete(Resume o) {
+        String sql =
+                "DELETE FROM resume " +
+                        "WHERE id=:id";
 
+        try (Connection con = sql2o.open()) {
+            con.createQuery(sql)
+                    .addParameter("id", o.getId())
+                    .executeUpdate();
+        }
     }
 }

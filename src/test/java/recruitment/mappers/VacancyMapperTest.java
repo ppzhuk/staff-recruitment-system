@@ -11,10 +11,11 @@ import static org.junit.Assert.assertEquals;
 
 /**
  * Created by Nataly on 01.06.2016.
- */
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class ResumeMapperTest {
-    ResumeMapper mapper = new ResumeMapper();
+*/
+
+ @FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class VacancyMapperTest {
+    VacancyMapper mapper = new VacancyMapper();
 
     @Test
     public void _1_testGetAll() {
@@ -23,10 +24,10 @@ public class ResumeMapperTest {
 
     @Test
     public void _2_testGetById() {
-        assertEquals("опыта нет", mapper.getById(3).getExperience());
+        assertEquals("Должность3", mapper.getById(3).getPosition());
     }
 
-    @Test
+    /*@Test
     public void _3_testInsert() {
         Resume p = new Resume(1, "exp", "skils", "edu");
         long id = mapper.save(p);
@@ -48,5 +49,5 @@ public class ResumeMapperTest {
         List<Resume> list =  mapper.getAll();
         mapper.delete(list.get(list.size()-1));
         assertEquals(list.size(), mapper.getAll().size()+1);
-    }
+    }*/
 }
