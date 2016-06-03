@@ -91,4 +91,17 @@ public class MarkMapper extends BaseMapper implements DataMapper<Mark> {
                     .executeUpdate();
         }
     }
+
+    public void deletePersonMarks(int id) {
+        String sql =
+                "DELETE FROM mark " +
+                        "WHERE evaluated_person_id=:id";
+
+        try (Connection con = sql2o.open()) {
+            con.createQuery(sql)
+                    .addParameter("id", id)
+                    .executeUpdate();
+        }
+    }
+
 }

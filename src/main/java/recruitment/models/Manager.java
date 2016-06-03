@@ -44,7 +44,7 @@ public class Manager extends Person {
         return (Resume) repo.getById(id, EntityRepository.RESUME_TYPE);
     }
     
-    public boolean createInterview(int applicantId, int vacancyId, Date interviewDate) {
+    public boolean createInterview(int applicantId, int vacancyId, String interviewDate) {
         EntityRepository repo = EntityRepository.getInstance();
         return repo.save(new Interview(applicantId, vacancyId, interviewDate));
     }

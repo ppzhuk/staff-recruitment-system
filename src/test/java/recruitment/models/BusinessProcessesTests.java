@@ -63,7 +63,7 @@ public class BusinessProcessesTests {
                 
                 foundResume = true;
                 
-                manager.createInterview(r.getApplicantId(), v.getId(), new Date());
+                manager.createInterview(r.getApplicantId(), v.getId(), Vacancy.getToday());
             }
         }
         

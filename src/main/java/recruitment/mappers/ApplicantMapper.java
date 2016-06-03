@@ -87,8 +87,10 @@ public class ApplicantMapper extends BaseMapper implements DataMapper<Applicant>
 
     @Override
     public void delete(Applicant prsn) {
-        // TODO delete resume before that
-        // + modify interview table (appl_id & vac_id should be nullable)
+        // TODO  modify interview table (appl_id & vac_id should be nullable)
+
+        new ResumeMapper().deleteByApplicantId(prsn.getApplicantId());
+        //new InterviewMapper().
         
         String sql =
                 "DELETE FROM applicant " +
@@ -101,5 +103,11 @@ public class ApplicantMapper extends BaseMapper implements DataMapper<Applicant>
         }
         PersonMapper pm = new PersonMapper();
         pm.delete(prsn);
+    }
+
+    public void delete(int id) {
+        Person p = new Person("", "", "", "");
+        Applicant e = new Applicant(id, p);
+        delete(e);
     }
 }

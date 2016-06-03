@@ -46,6 +46,14 @@ public class Vacancy {
         ).toString();
     }
 
+    public static String getToday() {
+        return Vacancy.DATE_FORMAT.format(
+                new Date(),
+                new StringBuffer(),
+                new FieldPosition(0)
+        ).toString();
+    }
+
     public String getPosition() {
         return position;
     }

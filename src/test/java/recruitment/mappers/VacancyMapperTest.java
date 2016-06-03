@@ -76,7 +76,7 @@ public class VacancyMapperTest {
         Vacancy v = mapper.getById(update_id);
         assertEquals(p.getApplicantId(), v.getApplicantId());
         assertEquals(1, v.getStatus());
-        assertEquals("2016.06.01", v.getCloseDate());
+        assertEquals(Vacancy.getToday(), v.getCloseDate());
     }
 
     @Test

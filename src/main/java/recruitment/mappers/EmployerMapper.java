@@ -111,10 +111,8 @@ public class EmployerMapper extends BaseMapper implements DataMapper<Employer> {
 
     @Override
     public void delete(Employer empl) {
-        
-        // TODO delete all relevant entries from others tables before that
-        //vacancy
-        
+        new VacancyMapper().deleteAllEmployersVacancies(empl.getEmployerId());
+
         String sql =
                 "DELETE FROM employer " +
                         "WHERE id=:id";
@@ -127,4 +125,11 @@ public class EmployerMapper extends BaseMapper implements DataMapper<Employer> {
         PersonMapper pm = new PersonMapper();
         pm.delete(empl);
     }
+
+    public void delete(int id) {
+        Person p = new Person("", "", "", "");
+        Employer e = new Employer(id, p);
+        delete(e);
+    }
+
 }

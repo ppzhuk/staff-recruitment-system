@@ -100,4 +100,10 @@ public class ManagerMapper extends BaseMapper implements DataMapper<Manager> {
         PersonMapper pm = new PersonMapper();
         pm.delete(mngr);
     }
+
+    public void delete(int id) {
+        Person p = new Person("", "", "", "");
+        Manager e = new Manager(id, p);
+        delete(e);
+    }
 }

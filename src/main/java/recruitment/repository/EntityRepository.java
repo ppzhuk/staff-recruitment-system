@@ -57,13 +57,13 @@ public class EntityRepository implements BaseRepository {
 
     private void addInterviews() {
         interviews = new ArrayList<>(3);
-        Interview i = new Interview(1, 1, new Date());
+        Interview i = new Interview(1, 1, Vacancy.getToday());
         i.setId(1);
         interviews.add(i);
-        i = new Interview(2, 2, new Date());
+        i = new Interview(2, 2, Vacancy.getToday());
         i.setId(2);
         interviews.add(i);
-        i = new Interview(3, 3, new Date());
+        i = new Interview(3, 3, Vacancy.getToday());
         i.setId(3);
         i.setResultEmployer(Interview.RESULT_POSITIVE);
         interviews.add(i);

@@ -106,7 +106,7 @@ public class VacancyMapper extends BaseMapper implements DataMapper<Vacancy> {
 
     @Override
     public void delete(Vacancy o) {
-        //TODO delete interview if its applicant already deleted
+        //TODO set interview vacancyid to null
         
         String sql =
                 "DELETE FROM vacancy " +
@@ -117,5 +117,11 @@ public class VacancyMapper extends BaseMapper implements DataMapper<Vacancy> {
                     .addParameter("id", o.getId())
                     .executeUpdate();
         }
+    }
+
+    public void deleteAllEmployersVacancies(int employerId) {
+        getAll().stream()
+                .filter(v -> v.getEmployerId() == employerId)
+                .forEach(this::delete);
     }
 }

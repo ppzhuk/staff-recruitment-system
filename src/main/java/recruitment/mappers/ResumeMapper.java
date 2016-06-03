@@ -106,4 +106,10 @@ public class ResumeMapper extends BaseMapper implements DataMapper<Resume> {
                     .executeUpdate();
         }
     }
+
+    public void deleteByApplicantId(int applicantId) {
+        getAll().stream()
+                .filter( r -> r.getApplicantId() == applicantId)
+                .forEach(this::delete);
+    }
 }

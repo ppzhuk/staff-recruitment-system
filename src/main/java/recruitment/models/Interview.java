@@ -18,18 +18,18 @@ public class Interview {
     private int id;
     private int applicantId;
     private int vacancyId;
-    private Date interviewDate;
+    private String interviewDate;
     private int resultEmployer = RESULT_UNDEFINED;
     private int resultApplicant = RESULT_UNDEFINED;
 
-    public Interview(int applicantId, int vacancyId, Date interviewDate, int result) {
+    public Interview(int applicantId, int vacancyId, String interviewDate, int result) {
         this.applicantId = applicantId;
         this.vacancyId = vacancyId;
         this.interviewDate = interviewDate;
         this.resultEmployer = result;
     }
 
-    public Interview(int applicantId, int vacancyId, Date interviewDate) {
+    public Interview(int applicantId, int vacancyId, String interviewDate) {
         this.applicantId = applicantId;
         this.vacancyId = vacancyId;
         this.interviewDate = interviewDate;
@@ -51,11 +51,11 @@ public class Interview {
         this.vacancyId = vacancyId;
     }
 
-    public Date getInterviewDate() {
+    public String getInterviewDate() {
         return interviewDate;
     }
 
-    public void setInterviewDate(Date interviewDate) {
+    public void setInterviewDate(String interviewDate) {
         this.interviewDate = interviewDate;
     }
 
@@ -71,7 +71,7 @@ public class Interview {
         if (isInterviewPassed()) {
             this.resultEmployer = resultEmployer;
         } else {
-            throw new IllegalStateException("You can't set interview result if interview has not yet passed.");
+            this.resultEmployer = RESULT_UNDEFINED;
         }
     }
 
@@ -87,7 +87,7 @@ public class Interview {
         if (isInterviewPassed()) {
             this.resultApplicant = resultApplicant;
         } else {
-            throw new IllegalStateException("You can't set interview result if interview has not yet passed.");
+            this.resultApplicant = RESULT_UNDEFINED;
         }
     }
 
@@ -113,7 +113,7 @@ public class Interview {
     }
     
     public boolean isInterviewPassed() {
-        return interviewDate.compareTo(new Date()) < 1;
+        return interviewDate.compareTo(Vacancy.getToday()) < 1;
     }
     
     public int getInterviewResult() {
