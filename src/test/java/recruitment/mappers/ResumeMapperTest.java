@@ -30,23 +30,23 @@ public class ResumeMapperTest {
     public void _3_testInsert() {
         Resume p = new Resume(1, "exp", "skils", "edu");
         long id = mapper.save(p);
-        assertEquals(p.getSkills(),mapper.getById(id).getSkills());
+        assertEquals(p.getSkills(), mapper.getById(id).getSkills());
     }
 
     @Test
     public void _4_testUpdate() {
         Resume p = new Resume(1, "exp", "навыки", "edu");
-        List<Resume> list =  mapper.getAll();
-        int update_id = list.get(list.size()-1).getId();
+        List<Resume> list = mapper.getAll();
+        int update_id = list.get(list.size() - 1).getId();
         p.setId(update_id);
         mapper.update(p);
-        assertEquals(p.getSkills(),mapper.getById(update_id).getSkills());
+        assertEquals(p.getSkills(), mapper.getById(update_id).getSkills());
     }
 
     @Test
     public void _5_testDelete() {
-        List<Resume> list =  mapper.getAll();
-        mapper.delete(list.get(list.size()-1));
-        assertEquals(list.size(), mapper.getAll().size()+1);
+        List<Resume> list = mapper.getAll();
+        mapper.delete(list.get(list.size() - 1));
+        assertEquals(list.size(), mapper.getAll().size() + 1);
     }
 }

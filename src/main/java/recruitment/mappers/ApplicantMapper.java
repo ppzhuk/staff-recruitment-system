@@ -21,7 +21,7 @@ public class ApplicantMapper extends BaseMapper implements DataMapper<Applicant>
             persons = con.createQuery(sql).executeAndFetchTable().rows();
         }
         List<Applicant> list = new ArrayList<>();
-        for (Row applicant: applicants) {
+        for (Row applicant : applicants) {
             Row person = persons.stream()
                     .filter(p -> p.getInteger("id").equals(applicant.getInteger("person_id")))
                     .findFirst().orElse(null);
@@ -92,15 +92,15 @@ public class ApplicantMapper extends BaseMapper implements DataMapper<Applicant>
         InterviewMapper im = new InterviewMapper();
         im.getAll()
                 .stream()
-                .filter( i -> i.getApplicantId() == prsn.getApplicantId())
-                .forEach( i -> im.clearApplicantId(i.getId()));
+                .filter(i -> i.getApplicantId() == prsn.getApplicantId())
+                .forEach(i -> im.clearApplicantId(i.getId()));
         VacancyMapper vm = new VacancyMapper();
         vm.getAll()
                 .stream()
                 .filter(v -> v.getApplicantId() == prsn.getApplicantId())
                 .forEach(vm::clearApplicant);
-        
-        
+
+
         String sql =
                 "DELETE FROM applicant " +
                         "WHERE id=:id";
@@ -112,11 +112,5 @@ public class ApplicantMapper extends BaseMapper implements DataMapper<Applicant>
         }
         PersonMapper pm = new PersonMapper();
         pm.delete(prsn);
-    }
-
-    public void delete(int id) {
-        Person p = new Person("", "", "", "");
-        Applicant e = new Applicant(id, p);
-        delete(e);
     }
 }

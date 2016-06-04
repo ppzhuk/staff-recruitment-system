@@ -3,9 +3,6 @@ package recruitment.models;
 import recruitment.repository.ApplicantRepository;
 import recruitment.repository.EmployerRepository;
 import recruitment.repository.EntityRepository;
-import recruitment.repository.ManagerRepository;
-
-import java.util.Date;
 
 /**
  * Created by Nataly on 23.05.2016.
@@ -14,7 +11,7 @@ public class Interview {
     public static final int RESULT_POSITIVE = 1;
     public static final int RESULT_UNDEFINED = 0;
     public static final int RESULT_NEGATIVE = -1;
-    
+
     private int id;
     private int applicantId;
     private int vacancyId;
@@ -64,7 +61,6 @@ public class Interview {
     }
 
     /**
-     * 
      * @param resultEmployer Interview.RESULT_POSITIVE, Interview.RESULT_NEGATIVE ,Interview.RESULT_UNDEFINED
      */
     public void setResultEmployer(int resultEmployer) {
@@ -80,7 +76,6 @@ public class Interview {
     }
 
     /**
-     *
      * @param resultApplicant Interview.RESULT_POSITIVE, Interview.RESULT_NEGATIVE ,Interview.RESULT_UNDEFINED
      */
     public void setResultApplicant(int resultApplicant) {
@@ -98,7 +93,7 @@ public class Interview {
     public void setId(int id) {
         this.id = id;
     }
-    
+
     public Employer getEmployer() {
         EmployerRepository employerRepository = EmployerRepository.getInstance();
         EntityRepository entityRepository = EntityRepository.getInstance();
@@ -111,11 +106,11 @@ public class Interview {
         ApplicantRepository applicantRepository = ApplicantRepository.getInstance();
         return applicantRepository.getById(applicantId);
     }
-    
+
     public boolean isInterviewPassed() {
         return interviewDate.compareTo(Vacancy.getToday()) < 1;
     }
-    
+
     public int getInterviewResult() {
         int res = RESULT_UNDEFINED;
         if (resultApplicant == RESULT_POSITIVE && resultEmployer == RESULT_POSITIVE) {

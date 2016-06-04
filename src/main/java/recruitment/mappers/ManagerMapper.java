@@ -22,7 +22,7 @@ public class ManagerMapper extends BaseMapper implements DataMapper<Manager> {
             persons = con.createQuery(sql).executeAndFetchTable().rows();
         }
         List<Manager> list = new ArrayList<>();
-        for (Row manager: managers) {
+        for (Row manager : managers) {
             Row person = persons.stream()
                     .filter(p -> p.getInteger("id").equals(manager.getInteger("person_id")))
                     .findFirst().orElse(null);
@@ -40,7 +40,7 @@ public class ManagerMapper extends BaseMapper implements DataMapper<Manager> {
                 p.getString("password")
         );
         prsn.setPhoneNumber(p.getString("phone_number"));
-        
+
         return new Manager(
                 m.getInteger("id"),
                 prsn
@@ -99,11 +99,5 @@ public class ManagerMapper extends BaseMapper implements DataMapper<Manager> {
         }
         PersonMapper pm = new PersonMapper();
         pm.delete(mngr);
-    }
-
-    public void delete(int id) {
-        Person p = new Person("", "", "", "");
-        Manager e = new Manager(id, p);
-        delete(e);
     }
 }

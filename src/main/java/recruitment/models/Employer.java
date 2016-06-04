@@ -52,15 +52,16 @@ public class Employer extends Person {
     public void setEmployerId(int id) {
         this.id = id;
     }
-    
-    public boolean createVacancy(int employerId, String position, String requirements, double salary) {
+
+    public long createVacancy(int employerId, String position, String requirements, double salary) {
         EntityRepository repo = EntityRepository.getInstance();
         return repo.save(new Vacancy(employerId, position, requirements, salary));
     }
-    
+
     public void closeVacancy(int vacancyId, int applicantId) {
         EntityRepository repo = EntityRepository.getInstance();
-        Vacancy v = (Vacancy)repo.getById(vacancyId, EntityRepository.VACANCY_TYPE);
+        Vacancy v = (Vacancy) repo.getById(vacancyId, EntityRepository.VACANCY_TYPE);
         v.setStatus(Vacancy.STATUS_CLOSE, applicantId);
+        repo.update(v, EntityRepository.VACANCY_TYPE);
     }
 }

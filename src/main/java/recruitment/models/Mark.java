@@ -5,7 +5,7 @@ package recruitment.models;
  */
 public class Mark {
     public static final double SATISFACTORY_MARK = 3.0;
-    
+
     private int id;
     private int managerId;
     private int evaluatedPersonId;
@@ -30,6 +30,9 @@ public class Mark {
     }
 
     public void setMark(int mark) {
+        if (mark < 0 || mark > 5) {
+            throw new IllegalArgumentException();
+        }
         this.mark = mark;
     }
 
@@ -64,6 +67,6 @@ public class Mark {
     public void setEvaluatedPersonId(int evaluatedPersonId) {
         this.evaluatedPersonId = evaluatedPersonId;
     }
-    
-    
+
+
 }

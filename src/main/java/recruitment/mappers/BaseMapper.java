@@ -2,8 +2,6 @@ package recruitment.mappers;
 
 import org.sql2o.Sql2o;
 
-import java.util.Map;
-
 /**
  * Created by Zhuk Pavel on 29.05.2016.
  */

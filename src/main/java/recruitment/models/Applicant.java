@@ -7,7 +7,7 @@ import recruitment.repository.EntityRepository;
  */
 public class Applicant extends Person {
     EntityRepository repo = EntityRepository.getInstance();
-    
+
     private int id;
 
     public Applicant(String name, String email, String login, String password) {
@@ -18,7 +18,7 @@ public class Applicant extends Person {
         super(p.getPersonId(), p.getName(), p.getEmail(), p.getLogin(), p.getPassword());
         this.id = id;
     }
-    
+
     public int getApplicantId() {
         return id;
     }
@@ -26,25 +26,26 @@ public class Applicant extends Person {
     public void setApplicantId(int id) {
         this.id = id;
     }
-    
-    public boolean createResume(int applicantId, String experience, String skills, String education) {
+
+    public long createResume(int applicantId, String experience, String skills, String education) {
         return repo.save(new Resume(applicantId, experience, skills, education));
     }
-    
+
     public void setFoundJob(int employerVacancyId) {
         Resume r = getResume();
         if (r == null) {
             throw new NullPointerException("Resume not found.");
         }
         r.setInSearch(false, employerVacancyId);
+        repo.update(r, EntityRepository.RESUME_TYPE);
     }
-    
+
     public Resume getResume() {
         return (Resume) repo.getAll(EntityRepository.RESUME_TYPE)
                 .stream()
-                .filter(o -> ((Resume)o).getApplicantId() == id)
+                .filter(o -> ((Resume) o).getApplicantId() == id)
                 .findFirst()
                 .orElse(null);
     }
-    
+
 }

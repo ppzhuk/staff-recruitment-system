@@ -21,8 +21,8 @@ public class EmployerTest {
     public void testGetById() {
         Person p = repo.getById(2);
         assertEquals("Работодатель2 Работодатель Работодатель", p.getName());
-        assertEquals(2, ((Employer)p).getEmployerId());
+        assertEquals(2, ((Employer) p).getEmployerId());
         assertEquals(5, p.getPersonId());
     }
-    
+
 }

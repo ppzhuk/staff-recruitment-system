@@ -4,11 +4,10 @@ import org.junit.Test;
 import recruitment.repository.PersonRepository;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 public class PersonTest {
     PersonRepository repo = PersonRepository.getInstance();
-    
+
     @Test
     public void testGetByLogin() {
         Person p = repo.getByLoginAndPass("manager3", "manager3");
@@ -23,7 +22,7 @@ public class PersonTest {
 
     @Test
     public void marksTest() {
-        Person p = repo.getById(7);        
+        Person p = repo.getById(7);
         assertEquals(3.5, p.getAverageMark(), 0.001);
     }
 }

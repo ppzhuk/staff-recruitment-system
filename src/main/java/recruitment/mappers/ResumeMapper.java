@@ -12,7 +12,7 @@ import java.util.Map;
  */
 public class ResumeMapper extends BaseMapper implements DataMapper<Resume> {
 
-    ResumeMapper() {
+    public ResumeMapper() {
         Map<String, String> colMaps = new HashMap<>();
         colMaps.put("applicant_id", "applicantId");
         colMaps.put("in_search", "inSearch");
@@ -109,12 +109,12 @@ public class ResumeMapper extends BaseMapper implements DataMapper<Resume> {
 
     public void deleteByApplicantId(int applicantId) {
         getAll().stream()
-                .filter( r -> r.getApplicantId() == applicantId)
+                .filter(r -> r.getApplicantId() == applicantId)
                 .forEach(this::delete);
     }
-    
+
     public void clearVacancy(Resume r) {
-        r.setInSearch(true,  -1);
+        r.setInSearch(true, -1);
         update(r);
     }
 }

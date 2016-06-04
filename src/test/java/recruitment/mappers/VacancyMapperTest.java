@@ -3,7 +3,6 @@ package recruitment.mappers;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
-import recruitment.models.Resume;
 import recruitment.models.Vacancy;
 
 import java.text.ParseException;
@@ -14,9 +13,9 @@ import static org.junit.Assert.assertNull;
 
 /**
  * Created by Nataly on 01.06.2016.
-*/
+ */
 
- @FixMethodOrder(MethodSorters.NAME_ASCENDING)
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class VacancyMapperTest {
     VacancyMapper mapper = new VacancyMapper();
 
@@ -66,11 +65,11 @@ public class VacancyMapperTest {
     }
 
     @Test
-    public void _4_testUpdate() throws ParseException  {
+    public void _4_testUpdate() throws ParseException {
         Vacancy p = new Vacancy(1, "position", "requirements", 5);
         p.setStatus(Vacancy.STATUS_CLOSE, 1);
-        List<Vacancy> list =  mapper.getAll();
-        int update_id = list.get(list.size()-1).getId();
+        List<Vacancy> list = mapper.getAll();
+        int update_id = list.get(list.size() - 1).getId();
         p.setId(update_id);
         mapper.update(p);
         Vacancy v = mapper.getById(update_id);
@@ -81,8 +80,8 @@ public class VacancyMapperTest {
 
     @Test
     public void _5_testDelete() {
-        List<Vacancy> list =  mapper.getAll();
-        mapper.delete(list.get(list.size()-1));
-        assertEquals(list.size(), mapper.getAll().size()+1);
+        List<Vacancy> list = mapper.getAll();
+        mapper.delete(list.get(list.size() - 1));
+        assertEquals(list.size(), mapper.getAll().size() + 1);
     }
 }

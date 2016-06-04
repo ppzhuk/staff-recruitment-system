@@ -12,7 +12,7 @@ public class Resume {
     private String description;
     private boolean inSearch = true;
     private int employerVacancyId = -1;
-    
+
     public Resume(int applicantId, String experience, String skills, String education) {
         this.applicantId = applicantId;
         this.experience = experience;
@@ -88,6 +88,6 @@ public class Resume {
     public int getEmployerVacancyId() {
         return employerVacancyId;
     }
-    
-    
+
+
 }

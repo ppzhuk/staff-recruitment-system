@@ -2,7 +2,6 @@ package recruitment.mappers;
 
 import org.sql2o.Connection;
 import recruitment.models.Mark;
-import recruitment.models.Person;
 
 import java.util.HashMap;
 import java.util.List;
@@ -13,7 +12,7 @@ import java.util.Map;
  */
 public class MarkMapper extends BaseMapper implements DataMapper<Mark> {
 
-    MarkMapper() {
+    public MarkMapper() {
         Map<String, String> colMaps = new HashMap<>();
         colMaps.put("manager_id", "managerId");
         colMaps.put("evaluated_person_id", "evaluatedPersonId");

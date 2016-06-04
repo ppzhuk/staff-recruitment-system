@@ -10,7 +10,6 @@ import java.text.ParseException;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 
 /**
  * Created by Nataly on 03.06.2016.
@@ -61,12 +60,12 @@ public class InterviewMapperTest {
     }
 
     @Test
-    public void _4_testUpdate() throws ParseException  {
+    public void _4_testUpdate() throws ParseException {
         Interview p = new Interview(1, 2, Vacancy.getToday());
         p.setResultApplicant(Interview.RESULT_POSITIVE);
         p.setResultEmployer(Interview.RESULT_POSITIVE);
-        List<Interview> list =  mapper.getAll();
-        int update_id = list.get(list.size()-1).getId();
+        List<Interview> list = mapper.getAll();
+        int update_id = list.get(list.size() - 1).getId();
         p.setId(update_id);
         mapper.update(p);
         Interview v = mapper.getById(update_id);
@@ -75,8 +74,8 @@ public class InterviewMapperTest {
 
     @Test
     public void _5_testDelete() {
-        List<Interview> list =  mapper.getAll();
-        mapper.delete(list.get(list.size()-1));
-        assertEquals(list.size(), mapper.getAll().size()+1);
+        List<Interview> list = mapper.getAll();
+        mapper.delete(list.get(list.size() - 1));
+        assertEquals(list.size(), mapper.getAll().size() + 1);
     }
 }

@@ -2,7 +2,6 @@ package recruitment.mappers;
 
 import org.sql2o.Connection;
 import recruitment.models.Interview;
-import recruitment.models.Person;
 
 import java.util.HashMap;
 import java.util.List;
@@ -13,7 +12,7 @@ import java.util.Map;
  */
 public class InterviewMapper extends BaseMapper implements DataMapper<Interview> {
 
-    InterviewMapper() {
+    public InterviewMapper() {
         Map<String, String> colMaps = new HashMap<>();
         colMaps.put("applicant_id", "applicantId");
         colMaps.put("vacancy_id", "vacancyId");
@@ -82,7 +81,7 @@ public class InterviewMapper extends BaseMapper implements DataMapper<Interview>
         }
 
         String sql =
-                "UPDATE interview SET applicant_id=:applicant_id, vacancy_id=:vacancy_id, date=:date, "+
+                "UPDATE interview SET applicant_id=:applicant_id, vacancy_id=:vacancy_id, date=:date, " +
                         "employer_result=:employer_result, applicant_result=:applicant_result" +
                         " WHERE id=:id";
 
@@ -112,11 +111,11 @@ public class InterviewMapper extends BaseMapper implements DataMapper<Interview>
         }
 
     }
-    
-   public void clearApplicantId(int id) {
+
+    public void clearApplicantId(int id) {
         getAll().stream()
-                .filter( i -> i.getId() == id)
-                .forEach( i -> {
+                .filter(i -> i.getId() == id)
+                .forEach(i -> {
                     i.setApplicantId(-1);
                     update(i);
                 });
@@ -124,8 +123,8 @@ public class InterviewMapper extends BaseMapper implements DataMapper<Interview>
 
     public void clearVacancyId(int id) {
         getAll().stream()
-                .filter( i -> i.getId() == id)
-                .forEach( i -> {
+                .filter(i -> i.getId() == id)
+                .forEach(i -> {
                     i.setVacancyId(-1);
                     update(i);
                 });

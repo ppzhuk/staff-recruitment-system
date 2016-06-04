@@ -36,7 +36,7 @@ public class EmployerMapperTest {
 
     @Test
     public void _3_testInsert() {
-        Person p = new Person("Person XYZ", "email", "login123", "pass");
+        Person p = new Person("Person XYZ", "email@mail", "login123", "pass");
         Employer e = new Employer(0, p);
         e.setCompanyName("google");
         long id = mapper.save(e);

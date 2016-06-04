@@ -1,5 +1,7 @@
 package recruitment.repository;
 
+import recruitment.mappers.ManagerMapper;
+import recruitment.models.Employer;
 import recruitment.models.Manager;
 
 import java.util.ArrayList;
@@ -8,7 +10,7 @@ import java.util.List;
 public class ManagerRepository extends PersonRepository {
     private static ManagerRepository instance;
     
-    private List<Manager> list;
+    private ManagerMapper mapper;
 
     public static ManagerRepository getInstance() {
         if (instance == null) {
@@ -19,15 +21,12 @@ public class ManagerRepository extends PersonRepository {
     
     private  ManagerRepository() {
         super();
-        list = new ArrayList<>(3);
-        super.getAll().stream()
-                .filter(p -> p.getPersonId() < 4)
-                .forEach(p -> list.add(new Manager(list.size() + 1, p)));
+        mapper = new ManagerMapper();
     }
 
     @Override
     public Manager getByLoginAndPass(String login, String pass) {
-        return list.stream()
+        return mapper.getAll().stream()
                 .filter(
                         m -> m.getLogin().equals(login) && m.getPassword().equals(pass)
                 )
@@ -36,20 +35,27 @@ public class ManagerRepository extends PersonRepository {
     }
 
     @Override
-    public boolean save(Object o) {
-        super.save(o);
-        Manager m = (Manager) o;
-        m.setManagerId(list.size()+1);
-        return list.add(m);
+    public long save(Object o) {
+        return mapper.save((Manager) o);
     }
 
     @Override
     public List<Manager> getAll() {
-        return list;
+        return mapper.getAll();
     }
 
     @Override
     public Manager getById(int id) {
-        return list.get(id - 1);
+        return  mapper.getById(id);
+    }
+
+    @Override
+    public void update(Object o) {
+        mapper.update((Manager)o);
+    }
+
+    @Override
+    public void remove(int id) {
+        mapper.delete(id);
     }
 }

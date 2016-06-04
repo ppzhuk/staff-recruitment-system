@@ -6,9 +6,7 @@ import recruitment.models.Employer;
 import recruitment.models.Person;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 public class EmployerMapper extends BaseMapper implements DataMapper<Employer> {
@@ -18,7 +16,7 @@ public class EmployerMapper extends BaseMapper implements DataMapper<Employer> {
     public List<Employer> getAll() {
         List<Row> employers;
         List<Row> persons;
-        
+
         try (Connection con = sql2o.open()) {
             String sql = "SELECT * FROM employer";
             employers = con.createQuery(sql).executeAndFetchTable().rows();
@@ -26,7 +24,7 @@ public class EmployerMapper extends BaseMapper implements DataMapper<Employer> {
             persons = con.createQuery(sql).executeAndFetchTable().rows();
         }
         List<Employer> list = new ArrayList<>();
-        for (Row employer: employers) {
+        for (Row employer : employers) {
             Row person = persons.stream()
                     .filter(p -> p.getInteger("id").equals(employer.getInteger("person_id")))
                     .findFirst().orElse(null);
@@ -37,9 +35,9 @@ public class EmployerMapper extends BaseMapper implements DataMapper<Employer> {
 
     private Employer formEmployer(Row e, Row p) {
         Person prsn = new Person(
-                p.getInteger("id"), 
-                p.getString("name"), 
-                p.getString("email"), 
+                p.getInteger("id"),
+                p.getString("name"),
+                p.getString("email"),
                 p.getString("login"),
                 p.getString("password")
         );
@@ -59,7 +57,7 @@ public class EmployerMapper extends BaseMapper implements DataMapper<Employer> {
     public Employer getById(long id) {
         List<Row> employers;
         List<Row> persons;
-        
+
         try (Connection con = sql2o.open()) {
             String sql = "SELECT * FROM employer WHERE id = :id";
             employers = con.createQuery(sql)
@@ -124,12 +122,6 @@ public class EmployerMapper extends BaseMapper implements DataMapper<Employer> {
         }
         PersonMapper pm = new PersonMapper();
         pm.delete(empl);
-    }
-
-    public void delete(int id) {
-        Person p = new Person("", "", "", "");
-        Employer e = new Employer(id, p);
-        delete(e);
     }
 
 }

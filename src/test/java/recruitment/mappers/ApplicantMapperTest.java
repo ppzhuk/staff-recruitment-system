@@ -4,7 +4,6 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import recruitment.models.Applicant;
-import recruitment.models.Applicant;
 import recruitment.models.Person;
 
 import java.util.List;
@@ -33,25 +32,25 @@ public class ApplicantMapperTest {
 
     @Test
     public void _3_testInsert() {
-        Person p = new Person("Person IRON MAN", "email", "login123", "pass");
+        Person p = new Person("Person IRON MAN", "email@mail", "login123", "pass");
         Applicant e = new Applicant(0, p);
         long id = mapper.save(e);
-        assertEquals(p.getName(),mapper.getById(id).getName());
+        assertEquals(p.getName(), mapper.getById(id).getName());
     }
 
     @Test
     public void _4_testUpdate() {
-        List<Applicant> list =  mapper.getAll();
-        Applicant e = list.get(list.size()-1);
+        List<Applicant> list = mapper.getAll();
+        Applicant e = list.get(list.size() - 1);
         e.setName("Anonimus");
         mapper.update(e);
-        assertEquals(e.getName(),mapper.getById(list.get(list.size()-1).getApplicantId()).getName());
+        assertEquals(e.getName(), mapper.getById(list.get(list.size() - 1).getApplicantId()).getName());
     }
 
     @Test
     public void _5_testDelete() {
-        List<Applicant> list =  mapper.getAll();
-        mapper.delete(list.get(list.size()-1));
-        assertEquals(list.size(), mapper.getAll().size()+1);
+        List<Applicant> list = mapper.getAll();
+        mapper.delete(list.get(list.size() - 1));
+        assertEquals(list.size(), mapper.getAll().size() + 1);
     }
 }

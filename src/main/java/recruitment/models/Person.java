@@ -16,7 +16,13 @@ public class Person {
 
     public Person(String name, String email, String login, String password) {
         this.name = name;
+        if (!email.contains("@")) {
+            throw new IllegalArgumentException("email");
+        }
         this.email = email;
+        if (login.length() < 4 || password.length() < 4) {
+            throw new IllegalArgumentException(" login or pass too short");
+        }
         this.login = login;
         this.password = password;
     }
@@ -50,6 +56,9 @@ public class Person {
     }
 
     public void setEmail(String email) {
+        if (!email.contains("@")) {
+            throw new IllegalArgumentException();
+        }
         this.email = email;
     }
 
@@ -58,6 +67,9 @@ public class Person {
     }
 
     public void setLogin(String login) {
+        if (login.length() < 4) {
+            throw new IllegalArgumentException("login too short");
+        }
         this.login = login;
     }
 
@@ -66,9 +78,12 @@ public class Person {
     }
 
     public void setPassword(String password) {
+        if (password.length() < 4) {
+            throw new IllegalArgumentException("pass too short");
+        }
         this.password = password;
     }
-    
+
     public double getAverageMark() {
         EntityRepository repo = EntityRepository.getInstance();
         double mark[] = new double[1];
@@ -77,15 +92,15 @@ public class Person {
         count[0] = 0;
         repo.getAll(EntityRepository.MARK_TYPE)
                 .stream()
-                .filter(m -> ((Mark)m).getEvaluatedPersonId() == id)
+                .filter(m -> ((Mark) m).getEvaluatedPersonId() == id)
                 .forEach(m -> {
-                    mark[0] += ((Mark)m).getMark();
+                    mark[0] += ((Mark) m).getMark();
                     count[0] += 1;
                 });
         if (count[0] == 0) {
             return 5;
         }
-        return mark[0]/count[0];
+        return mark[0] / count[0];
     }
 
     public String getPhoneNumber() {

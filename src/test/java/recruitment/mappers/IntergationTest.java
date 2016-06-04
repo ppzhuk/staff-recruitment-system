@@ -26,11 +26,11 @@ public class IntergationTest {
 
     @Test
     public void _1_markTest() {
-        Person p = new Person("namr", "eml", "lgnspod", "pass");
-        int  person_id = (int) personMapper.save(p);
+        Person p = new Person("namr", "eml@mail", "lgnspod", "pass");
+        int person_id = (int) personMapper.save(p);
         Mark m = new Mark(1, person_id, 5, "comment");
         int mark_id = (int) markMapper.save(m);
-        
+
         assertEquals("comment", markMapper.getById(mark_id).getComment());
         assertEquals(5, markMapper.getAll().size());
 
@@ -42,7 +42,7 @@ public class IntergationTest {
 
     @Test
     public void _2_interviewTest() {
-        Person p = new Person("namr", "eml", "lgnspod", "pass");
+        Person p = new Person("namr", "eml@mail", "lgnspod", "pass");
         Applicant a = new Applicant(0, p);
         int appl_id = (int) applicantMapper.save(a);
         a = applicantMapper.getById(appl_id);
@@ -58,7 +58,7 @@ public class IntergationTest {
         Interview i = new Interview(appl_id, vac_id, Vacancy.getToday());
         int int_id = (int) interviewMapper.save(i);
         i.setId(int_id);
-        
+
         i.setResultApplicant(Interview.RESULT_POSITIVE);
         i.setResultEmployer(Interview.RESULT_POSITIVE);
         v.setStatus(Vacancy.STATUS_CLOSE, appl_id);
@@ -67,7 +67,7 @@ public class IntergationTest {
         interviewMapper.update(i);
         vacancyMapper.update(v);
         resumeMapper.update(r);
-        
+
         assertEquals(appl_id, vacancyMapper.getById(int_id).getApplicantId());
 
         applicantMapper.delete(a);
@@ -78,9 +78,9 @@ public class IntergationTest {
         assertEquals(-1, interviewMapper.getById(int_id).getApplicantId());
         assertEquals(vac_id, interviewMapper.getById(int_id).getVacancyId());
         assertEquals(-1, vacancyMapper.getById(int_id).getApplicantId());
-        
+
         vacancyMapper.delete(v);
-        
+
         assertEquals(3, interviewMapper.getAll().size());
         assertEquals(3, vacancyMapper.getAll().size());
     }

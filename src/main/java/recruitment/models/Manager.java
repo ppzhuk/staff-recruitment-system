@@ -3,14 +3,11 @@ package recruitment.models;
 import recruitment.repository.EntityRepository;
 import recruitment.repository.PersonRepository;
 
-import java.util.Date;
-import java.util.List;
-
 public class Manager extends Person {
     private int id;
 
     public Manager(int id, Person p) {
-        super(p.getPersonId(), p.getName(), p.getEmail(), p.getLogin(), p.getPassword());  
+        super(p.getPersonId(), p.getName(), p.getEmail(), p.getLogin(), p.getPassword());
         this.id = id;
     }
 
@@ -18,8 +15,8 @@ public class Manager extends Person {
         super(name, email, login, password);
         this.id = id;
     }
-    
-    
+
+
     public int getManagerId() {
         return id;
     }
@@ -27,12 +24,12 @@ public class Manager extends Person {
     public void setManagerId(int id) {
         this.id = id;
     }
-    
+
     public Vacancy getVacancy(int id) {
         EntityRepository repo = EntityRepository.getInstance();
         return (Vacancy) repo.getById(id, EntityRepository.VACANCY_TYPE);
     }
-    
+
     public double getPersonMark(int id) {
         PersonRepository repo = PersonRepository.getInstance();
         Person p = repo.getById(id);
@@ -43,13 +40,13 @@ public class Manager extends Person {
         EntityRepository repo = EntityRepository.getInstance();
         return (Resume) repo.getById(id, EntityRepository.RESUME_TYPE);
     }
-    
-    public boolean createInterview(int applicantId, int vacancyId, String interviewDate) {
+
+    public long createInterview(int applicantId, int vacancyId, String interviewDate) {
         EntityRepository repo = EntityRepository.getInstance();
         return repo.save(new Interview(applicantId, vacancyId, interviewDate));
     }
-    
-    public boolean createMark(int mark, int personId) {
+
+    public long createMark(int mark, int personId) {
         EntityRepository repo = EntityRepository.getInstance();
         return repo.save(new Mark(id, personId, mark));
     }

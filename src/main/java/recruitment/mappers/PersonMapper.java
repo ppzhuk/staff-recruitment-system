@@ -12,7 +12,7 @@ import java.util.Map;
  */
 public class PersonMapper extends BaseMapper implements DataMapper<Person> {
 
-    PersonMapper() {
+    public PersonMapper() {
         Map<String, String> colMaps = new HashMap<>();
         colMaps.put("phone_number", "phoneNumber");
 
@@ -94,6 +94,4 @@ public class PersonMapper extends BaseMapper implements DataMapper<Person> {
                     .executeUpdate();
         }
     }
-
-
 }

@@ -31,23 +31,23 @@ public class MarkMapperTest {
         Mark p = new Mark(1, 4, 5);
         p.setComment("some comment");
         long id = mapper.save(p);
-        assertEquals(p.getComment(),mapper.getById(id).getComment());
+        assertEquals(p.getComment(), mapper.getById(id).getComment());
     }
 
     @Test
     public void _4_testUpdate() {
         Mark p = new Mark(1, 4, 1);
-        List<Mark> list =  mapper.getAll();
-        int update_id = list.get(list.size()-1).getId();
+        List<Mark> list = mapper.getAll();
+        int update_id = list.get(list.size() - 1).getId();
         p.setId(update_id);
         mapper.update(p);
-        assertEquals(p.getMark(),mapper.getById(update_id).getMark());
+        assertEquals(p.getMark(), mapper.getById(update_id).getMark());
     }
 
     @Test
     public void _5_testDelete() {
-        List<Mark> list =  mapper.getAll();
-        mapper.delete(list.get(list.size()-1));
-        assertEquals(list.size(), mapper.getAll().size()+1);
+        List<Mark> list = mapper.getAll();
+        mapper.delete(list.get(list.size() - 1));
+        assertEquals(list.size(), mapper.getAll().size() + 1);
     }
 }

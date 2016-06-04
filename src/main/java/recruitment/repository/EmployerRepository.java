@@ -1,5 +1,7 @@
 package recruitment.repository;
 
+import recruitment.mappers.EmployerMapper;
+import recruitment.models.Applicant;
 import recruitment.models.Employer;
 
 import java.util.ArrayList;
@@ -11,7 +13,7 @@ import java.util.List;
 public class EmployerRepository extends PersonRepository {
     private static EmployerRepository instance;
             
-    private List<Employer> list;
+    private EmployerMapper mapper;
 
     public static EmployerRepository getInstance() {
         if (instance == null) {
@@ -22,22 +24,12 @@ public class EmployerRepository extends PersonRepository {
     
     private EmployerRepository() {
         super();
-        list = new ArrayList<>(3);
-        super.getAll().stream()
-                .filter(p ->
-                        p.getPersonId() >= 4 && p.getPersonId() < 7)
-                .forEach(p -> {
-                    Employer e = new Employer(list.size() + 1, p);
-                    e.setCompanyName("Company" + e.getEmployerId());
-                    e.setDescription("The " + e.getEmployerId() + " best company in the world!");
-                    e.setSite("www.company" + e.getEmployerId() + ".org");
-                    list.add(e);
-                });
+        mapper = new EmployerMapper();
     }
 
     @Override
     public Employer getByLoginAndPass(String login, String pass) {
-        return list.stream()
+        return mapper.getAll().stream()
                 .filter(
                         m -> m.getLogin().equals(login) && m.getPassword().equals(pass)
                 )
@@ -46,20 +38,27 @@ public class EmployerRepository extends PersonRepository {
     }
 
     @Override
-    public boolean save(Object o) {
-        super.save(o);
-        Employer e = (Employer) o;
-        e.setEmployerId(list.size()+1);
-        return list.add(e);
+    public long save(Object o) {
+        return mapper.save((Employer) o);
     }
 
     @Override
     public List<Employer> getAll() {
-        return list;
+        return mapper.getAll();
     }
 
     @Override
     public Employer getById(int id) {
-        return list.get(id - 1);
+        return mapper.getById(id);
+    }
+
+    @Override
+    public void update(Object o) {
+        mapper.update((Employer)o);
+    }
+
+    @Override
+    public void remove(int id) {
+        mapper.delete(id);
     }
 }

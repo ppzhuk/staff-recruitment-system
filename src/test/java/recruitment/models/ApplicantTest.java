@@ -24,7 +24,7 @@ public class ApplicantTest {
     public void testGetById() {
         Person p = repo.getById(3);
         assertEquals("Соискатель3 Соискатель Соискатель", p.getName());
-        assertEquals(3, ((Applicant)p).getApplicantId());
+        assertEquals(3, ((Applicant) p).getApplicantId());
         assertEquals(9, p.getPersonId());
     }
 }
