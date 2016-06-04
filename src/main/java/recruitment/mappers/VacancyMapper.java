@@ -76,7 +76,7 @@ public class VacancyMapper extends BaseMapper implements DataMapper<Vacancy> {
                     .addParameter("requirments", vacancy.getRequirements())
                     .addParameter("salary", vacancy.getSalary())
                     .addParameter("status", vacancy.getStatus())
-                    .addParameter("applicant_id", vacancy.getApplicantId() == -1 ? null : vacancy.getApplicantId())
+                    .addParameter("applicant_id", vacancy.getApplicantId() < 1 ? null : vacancy.getApplicantId())
                     .addParameter("closeDate", vacancy.getCloseDate())
                     .executeUpdate()
                     .getKey();
@@ -97,7 +97,7 @@ public class VacancyMapper extends BaseMapper implements DataMapper<Vacancy> {
                     .addParameter("requirments", vacancy.getRequirements())
                     .addParameter("salary", vacancy.getSalary())
                     .addParameter("status", vacancy.getStatus())
-                    .addParameter("applicant_id", vacancy.getApplicantId() == -1 ? null : vacancy.getApplicantId())
+                    .addParameter("applicant_id", vacancy.getApplicantId() < 1 ? null : vacancy.getApplicantId())
                     .addParameter("closeDate", vacancy.getCloseDate())
                     .addParameter("id", vacancy.getId())
                     .executeUpdate();
@@ -106,7 +106,17 @@ public class VacancyMapper extends BaseMapper implements DataMapper<Vacancy> {
 
     @Override
     public void delete(Vacancy o) {
-        //TODO set interview vacancyid to null
+        InterviewMapper im = new InterviewMapper();
+        im.getAll()
+                .stream()
+                .filter( i -> i.getVacancyId() == o.getId())
+                .forEach( i -> im.clearVacancyId(i.getId()));
+        
+        ResumeMapper rm = new ResumeMapper();
+        rm.getAll()
+                .stream()
+                .filter( r -> r.getEmployerVacancyId() == o.getId())
+                .forEach(rm::clearVacancy);
         
         String sql =
                 "DELETE FROM vacancy " +
@@ -123,5 +133,10 @@ public class VacancyMapper extends BaseMapper implements DataMapper<Vacancy> {
         getAll().stream()
                 .filter(v -> v.getEmployerId() == employerId)
                 .forEach(this::delete);
+    }
+    
+    public void clearApplicant(Vacancy v) {
+        v.setStatus(Vacancy.STATUS_OPEN, -1);
+        update(v);
     }
 }

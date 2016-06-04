@@ -36,9 +36,9 @@ public class Vacancy {
      * 
      * @param status Vacancy.STATUS_OPEN, Vacancy.STATUS_CLOSE
      */
-    public void setStatus(int status, int applicantResumeId) {
+    public void setStatus(int status, int applicantId) {
         this.status = status;
-        this.applicantId = status == STATUS_OPEN ? -1 : applicantResumeId;
+        this.applicantId = status == STATUS_OPEN ? -1 : applicantId;
         this.closeDate = Vacancy.DATE_FORMAT.format(
                 new Date(),
                 new StringBuffer(),

@@ -87,10 +87,19 @@ public class ApplicantMapper extends BaseMapper implements DataMapper<Applicant>
 
     @Override
     public void delete(Applicant prsn) {
-        // TODO  modify interview table (appl_id & vac_id should be nullable)
 
         new ResumeMapper().deleteByApplicantId(prsn.getApplicantId());
-        //new InterviewMapper().
+        InterviewMapper im = new InterviewMapper();
+        im.getAll()
+                .stream()
+                .filter( i -> i.getApplicantId() == prsn.getApplicantId())
+                .forEach( i -> im.clearApplicantId(i.getId()));
+        VacancyMapper vm = new VacancyMapper();
+        vm.getAll()
+                .stream()
+                .filter(v -> v.getApplicantId() == prsn.getApplicantId())
+                .forEach(vm::clearApplicant);
+        
         
         String sql =
                 "DELETE FROM applicant " +

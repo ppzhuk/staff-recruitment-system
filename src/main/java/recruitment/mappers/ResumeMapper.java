@@ -60,7 +60,7 @@ public class ResumeMapper extends BaseMapper implements DataMapper<Resume> {
                     .addParameter("description", resume.getDescription())
                     .addParameter("in_search", resume.isInSearch())
                     .addParameter("vacancy_id",
-                            resume.getEmployerVacancyId() == -1
+                            resume.getEmployerVacancyId() < 1
                                     ? null
                                     : resume.getEmployerVacancyId()
                     )
@@ -85,7 +85,7 @@ public class ResumeMapper extends BaseMapper implements DataMapper<Resume> {
                     .addParameter("description", resume.getDescription())
                     .addParameter("in_search", resume.isInSearch())
                     .addParameter("vacancy_id",
-                            resume.getEmployerVacancyId() == -1
+                            resume.getEmployerVacancyId() < 1
                                     ? null
                                     : resume.getEmployerVacancyId()
                     )
@@ -111,5 +111,10 @@ public class ResumeMapper extends BaseMapper implements DataMapper<Resume> {
         getAll().stream()
                 .filter( r -> r.getApplicantId() == applicantId)
                 .forEach(this::delete);
+    }
+    
+    public void clearVacancy(Resume r) {
+        r.setInSearch(true,  -1);
+        update(r);
     }
 }
