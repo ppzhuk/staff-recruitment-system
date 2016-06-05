@@ -21,6 +21,9 @@ public class Mark {
     public Mark(int managerId, int evaluatedPersonId, int mark, String comment) {
         this.managerId = managerId;
         this.evaluatedPersonId = evaluatedPersonId;
+        if (mark < 0 || mark > 5) {
+            throw new IllegalArgumentException();
+        }
         this.mark = mark;
         this.comment = comment;
     }
