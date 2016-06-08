@@ -8,7 +8,7 @@ import java.awt.*;
 /**
  * Created by Zhuk Pavel on 08.06.2016.
  */
-public class EmployerResidtrationForm {
+public class EmployerRegistrationForm {
 
     public static final String html = "<html><body style='width:250px'>";
     
@@ -26,7 +26,7 @@ public class EmployerResidtrationForm {
     private JTextField siteTF;
     private JLabel errorMsgLabel;
 
-    public EmployerResidtrationForm() {
+    public EmployerRegistrationForm() {
         fioTF.addActionListener(e -> loginTF.requestFocus());
         loginTF.addActionListener(e -> passTF.requestFocus());
         passTF.addActionListener(e -> submitPassTF.requestFocus());
@@ -68,7 +68,7 @@ public class EmployerResidtrationForm {
 
     public static void main(String[] args) {
         frame = new JFrame("Регистрация работодателя");
-        frame.setContentPane(new EmployerResidtrationForm().panel);
+        frame.setContentPane(new EmployerRegistrationForm().panel);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);

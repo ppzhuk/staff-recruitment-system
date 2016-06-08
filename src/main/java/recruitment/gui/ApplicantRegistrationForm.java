@@ -61,7 +61,7 @@ public class ApplicantRegistrationForm {
                     return;
                 }
             }
-            errorMessageLabel.setText(EmployerResidtrationForm.html + errorMessage);
+            errorMessageLabel.setText(EmployerRegistrationForm.html + errorMessage);
             errorMessageLabel.setForeground(new Color(255, 0, 0));
         });
     }

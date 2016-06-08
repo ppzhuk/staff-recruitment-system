@@ -24,7 +24,7 @@ public class LoginForm {
         loginButton.addActionListener(loginlistener);
         passwordTF.addActionListener(loginlistener);
         loginTF.addActionListener(e -> passwordTF.requestFocus());
-        employerRegistrationButton.addActionListener(e -> EmployerResidtrationForm.main(null));
+        employerRegistrationButton.addActionListener(e -> EmployerRegistrationForm.main(null));
         applicantRegistrationButton.addActionListener(e -> ApplicantRegistrationForm.main(null));
     }
 
