@@ -58,4 +58,12 @@ public class ManagerRepository extends PersonRepository {
     public void remove(int id) {
         mapper.delete(id);
     }
+    
+    public Manager getByPersonId(int personId) {
+        return mapper.getAll()
+                .stream()
+                .filter( m -> m.getPersonId() == personId)
+                .findFirst()
+                .orElse(null);
+    }
 }

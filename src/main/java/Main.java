@@ -1,4 +1,4 @@
-import recruitment.gui.SimpleForm;
+import recruitment.gui.LoginForm;
 import recruitment.services.RestAPI;
 
 import javax.swing.*;
@@ -8,12 +8,12 @@ import javax.swing.*;
  */
 public class Main {
     public static void main(String[] args) {
-        RestAPI.start();
+        //RestAPI.start();
 
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new SimpleForm();
+                LoginForm.main(null);
             }
         });
     }

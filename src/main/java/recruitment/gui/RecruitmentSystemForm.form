@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="recruitment.gui.RecruitmentSystemForm">
+  <grid id="27dc6" binding="panel" layout-manager="GridLayoutManager" row-count="4" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="5" left="5" bottom="5" right="5"/>
+    <constraints>
+      <xy x="20" y="20" width="612" height="700"/>
+    </constraints>
+    <properties>
+      <minimumSize width="512" height="512"/>
+      <preferredSize width="512" height="650"/>
+    </properties>
+    <border type="none"/>
+    <children>
+      <grid id="fd34b" layout-manager="GridLayoutManager" row-count="3" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
+            <preferred-size width="307" height="24"/>
+          </grid>
+        </constraints>
+        <properties/>
+        <border type="none" title="Вакансии"/>
+        <children>
+          <scrollpane id="a095d">
+            <constraints>
+              <grid row="2" column="0" row-span="1" col-span="2" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                <preferred-size width="300" height="50"/>
+              </grid>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="5b025" class="javax.swing.JList" binding="vacancyList">
+                <constraints/>
+                <properties>
+                  <selectionMode value="0"/>
+                </properties>
+              </component>
+            </children>
+          </scrollpane>
+          <component id="cf0a3" class="javax.swing.JRadioButton" binding="vacancyOpenRB">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Открытые"/>
+            </properties>
+          </component>
+          <component id="1e9cd" class="javax.swing.JRadioButton" binding="vacancyAllRB">
+            <constraints>
+              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Все"/>
+            </properties>
+          </component>
+          <component id="7a1bb" class="javax.swing.JRadioButton" binding="vacancyCloseRB">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Закрытые"/>
+            </properties>
+          </component>
+          <component id="cf6b3" class="javax.swing.JRadioButton" binding="vacancyOwnRB">
+            <constraints>
+              <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Собственные"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <grid id="5891a" layout-manager="GridLayoutManager" row-count="3" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
+            <preferred-size width="307" height="24"/>
+          </grid>
+        </constraints>
+        <properties/>
+        <border type="none" title="Резюме"/>
+        <children>
+          <scrollpane id="3c260">
+            <constraints>
+              <grid row="2" column="0" row-span="1" col-span="2" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                <preferred-size width="300" height="50"/>
+              </grid>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="b6207" class="javax.swing.JList" binding="resumeList">
+                <constraints/>
+                <properties>
+                  <selectionMode value="0"/>
+                </properties>
+              </component>
+            </children>
+          </scrollpane>
+          <component id="6d7f0" class="javax.swing.JRadioButton" binding="resumeOpenRB">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="В поиске"/>
+            </properties>
+          </component>
+          <component id="2858d" class="javax.swing.JRadioButton" binding="resumeAllRB">
+            <constraints>
+              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Все"/>
+            </properties>
+          </component>
+          <component id="b4b3d" class="javax.swing.JRadioButton" binding="resumeCloseRB">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Трудоустроены"/>
+            </properties>
+          </component>
+          <component id="9680d" class="javax.swing.JRadioButton" binding="resumeOwnRB">
+            <constraints>
+              <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Собств. резюме"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <grid id="2f975" layout-manager="GridLayoutManager" row-count="3" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
+            <preferred-size width="307" height="24"/>
+          </grid>
+        </constraints>
+        <properties/>
+        <border type="none" title="Интервью"/>
+        <children>
+          <scrollpane id="e134d">
+            <constraints>
+              <grid row="2" column="0" row-span="1" col-span="2" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                <preferred-size width="300" height="50"/>
+              </grid>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="a12f7" class="javax.swing.JList" binding="interviewList">
+                <constraints/>
+                <properties>
+                  <selectionMode value="0"/>
+                </properties>
+              </component>
+            </children>
+          </scrollpane>
+          <component id="b1116" class="javax.swing.JRadioButton" binding="interviewOpenRB">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Назначенные"/>
+            </properties>
+          </component>
+          <component id="83d72" class="javax.swing.JRadioButton" binding="interviewAllRB">
+            <constraints>
+              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Все"/>
+            </properties>
+          </component>
+          <component id="fc0ad" class="javax.swing.JRadioButton" binding="interviewPassedRB">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Прошедшие"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <component id="599e" class="javax.swing.JButton" binding="exitButton">
+        <constraints>
+          <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Выход"/>
+        </properties>
+      </component>
+      <grid id="68023" layout-manager="GridLayoutManager" row-count="3" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="0" column="1" row-span="3" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font style="1"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <grid id="89e24" layout-manager="GridLayoutManager" row-count="5" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="5" left="5" bottom="5" right="5"/>
+            <constraints>
+              <grid row="2" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties/>
+            <border type="line"/>
+            <children>
+              <component id="559a0" class="javax.swing.JButton" binding="vacancyCreateButton">
+                <constraints>
+                  <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Создать вакансию"/>
+                </properties>
+              </component>
+              <vspacer id="6faa0">
+                <constraints>
+                  <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </vspacer>
+              <component id="b1c42" class="javax.swing.JButton" binding="interviewCreateButton">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Создать интервью"/>
+                </properties>
+              </component>
+              <component id="9b63f" class="javax.swing.JButton" binding="markCreateButton">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Создать отзыв"/>
+                </properties>
+              </component>
+              <component id="eaefb" class="javax.swing.JButton" binding="personDataUpdateButton">
+                <constraints>
+                  <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Изменение перс-ных данных"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <component id="797d3" class="javax.swing.JLabel" binding="usernameL">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Label"/>
+            </properties>
+          </component>
+          <component id="cade0" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Пользователь:"/>
+            </properties>
+          </component>
+          <component id="ab289" class="javax.swing.JButton" binding="logoutBtn">
+            <constraints>
+              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Смена пол-ля"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+    </children>
+  </grid>
+  <buttonGroups>
+    <group name="buttonGroup1">
+      <member id="cf0a3"/>
+      <member id="1e9cd"/>
+      <member id="7a1bb"/>
+      <member id="cf6b3"/>
+    </group>
+    <group name="resumeRadioButtonsGroup">
+      <member id="6d7f0"/>
+      <member id="2858d"/>
+      <member id="b4b3d"/>
+      <member id="9680d"/>
+    </group>
+    <group name="InterviewRadioButtonsGroup">
+      <member id="b1116"/>
+      <member id="83d72"/>
+      <member id="fc0ad"/>
+    </group>
+  </buttonGroups>
+</form>

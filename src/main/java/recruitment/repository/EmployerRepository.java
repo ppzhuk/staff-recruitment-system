@@ -3,6 +3,8 @@ package recruitment.repository;
 import recruitment.mappers.EmployerMapper;
 import recruitment.models.Applicant;
 import recruitment.models.Employer;
+import recruitment.models.Manager;
+import recruitment.models.Person;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +43,22 @@ public class EmployerRepository extends PersonRepository {
     public long save(Object o) {
         return mapper.save((Employer) o);
     }
+    
+    public long save(String name, String login, String password, String email, 
+                     String companyName, String description, String site) {
+        Person p = new Person(
+                name,
+                email,
+                login,
+                password
+        );
+        Employer empl = new Employer(0, p);
+        empl.setCompanyName(companyName);
+        empl.setDescription(description);
+        empl.setSite(site);
+        
+        return save(empl);
+    }
 
     @Override
     public List<Employer> getAll() {
@@ -60,5 +78,13 @@ public class EmployerRepository extends PersonRepository {
     @Override
     public void remove(int id) {
         mapper.delete(id);
+    }
+
+    public Employer getByPersonId(int personId) {
+        return mapper.getAll()
+                .stream()
+                .filter( m -> m.getPersonId() == personId)
+                .findFirst()
+                .orElse(null);
     }
 }

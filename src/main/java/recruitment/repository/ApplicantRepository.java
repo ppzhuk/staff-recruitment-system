@@ -2,6 +2,9 @@ package recruitment.repository;
 
 import recruitment.mappers.ApplicantMapper;
 import recruitment.models.Applicant;
+import recruitment.models.Employer;
+import recruitment.models.Manager;
+import recruitment.models.Person;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +41,17 @@ public class ApplicantRepository extends PersonRepository {
         return mapper.save((Applicant) o);
     }
 
+    public long save(String name, String login, String password, String email) {
+        Person p = new Person(
+                name,
+                email,
+                login,
+                password
+        );
+        Applicant applicant = new Applicant(-1, p);
+        return save(applicant);
+    }
+    
     @Override
     public List<Applicant> getAll() {
         return mapper.getAll();
@@ -56,5 +70,13 @@ public class ApplicantRepository extends PersonRepository {
     @Override
     public void remove(int id) {
         mapper.delete(id);
+    }
+
+    public Applicant getByPersonId(int personId) {
+        return mapper.getAll()
+                .stream()
+                .filter( m -> m.getPersonId() == personId)
+                .findFirst()
+                .orElse(null);
     }
 }

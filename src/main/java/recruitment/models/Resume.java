@@ -1,5 +1,7 @@
 package recruitment.models;
 
+import recruitment.repository.ApplicantRepository;
+
 /**
  * Created by Nataly on 23.05.2016.
  */
@@ -89,5 +91,15 @@ public class Resume {
         return employerVacancyId;
     }
 
-
+    private String applicantName = "";
+    
+    @Override
+    public String toString() {
+        if (applicantName == null || applicantName.equals("")) {
+            applicantName = ApplicantRepository.getInstance().getById(applicantId).getName();
+        }
+        return "(" + id +
+                ") " + applicantName + 
+                "  -  " + (inSearch ? "в поиске" : "устроен");
+    }
 }

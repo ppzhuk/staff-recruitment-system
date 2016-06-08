@@ -4,6 +4,8 @@ import recruitment.repository.ApplicantRepository;
 import recruitment.repository.EmployerRepository;
 import recruitment.repository.EntityRepository;
 
+import javax.swing.text.html.parser.Entity;
+
 /**
  * Created by Nataly on 23.05.2016.
  */
@@ -119,5 +121,33 @@ public class Interview {
             res = RESULT_NEGATIVE;
         }
         return res;
+    }
+
+    private String applicantName = "";
+    private String position = "";
+    private String company = "";
+    
+    @Override
+    public String toString() {
+        if (applicantName == null || applicantName.equals("")) {
+            applicantName = getApplicant().getName();
+        }
+        if (position == null || position.equals("")) {
+            position = ((Vacancy)EntityRepository.getInstance()
+                    .getById(vacancyId, EntityRepository.VACANCY_TYPE)).getPosition();
+        }
+        if (company == null || company.equals("")) {
+            company = getEmployer().getCompanyName();
+        }
+        return "(" + id +
+                ") " + applicantName + 
+                "  -  " + position +
+                "  -  " + company +
+                "  -  " + interviewDate +
+                "  -  " + (getInterviewResult() == RESULT_UNDEFINED 
+                    ? "не известно"
+                    : (getInterviewResult() == RESULT_POSITIVE 
+                        ? "положительно"
+                        : "отрицательно"));
     }
 }

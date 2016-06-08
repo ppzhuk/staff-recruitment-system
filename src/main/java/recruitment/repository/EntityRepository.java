@@ -55,6 +55,11 @@ public class EntityRepository implements BaseRepository {
         }
         throw new IllegalArgumentException();
     }
+    
+    public long saveResume(long applicantId, String experience, String skills, String education, String description) {
+        Resume r = new Resume((int)applicantId, experience, skills, education, description);
+        return save(r);
+    }
 
     public List<?> getAll(int type) {
         switch (type) {

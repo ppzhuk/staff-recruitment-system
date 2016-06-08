@@ -1,5 +1,7 @@
 package recruitment.models;
 
+import recruitment.repository.EmployerRepository;
+
 import java.text.FieldPosition;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -110,5 +112,19 @@ public class Vacancy {
 
     public void setCloseDate(String closeDate) {
         this.closeDate = closeDate;
+    }
+
+    
+    private String companyName = "";
+    
+    @Override
+    public String toString() {
+        if (companyName == null || companyName.equals("")) {
+            companyName = EmployerRepository.getInstance().getById(employerId).getCompanyName();
+        }
+        return "(" + id +
+                ") " + position +
+                "  -  " + companyName + 
+                "  -  " + (status == STATUS_OPEN ? "открыта" : "закрыта");
     }
 }
