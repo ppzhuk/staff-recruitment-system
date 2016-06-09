@@ -45,6 +45,20 @@ public class ResumeMapper extends BaseMapper implements DataMapper<Resume> {
         }
     }
 
+    public Resume getByApplicantId(long applicantId) {
+        String sql =
+                "SELECT * " +
+                        "FROM resume " +
+                        "WHERE applicant_id = :id";
+
+        try (Connection con = sql2o.open()) {
+            return con.createQuery(sql)
+                    .addParameter("id", applicantId)
+                    .executeAndFetchFirst(Resume.class);
+        }
+    }
+
+
     @Override
     public long save(Resume resume) {
         String sql =

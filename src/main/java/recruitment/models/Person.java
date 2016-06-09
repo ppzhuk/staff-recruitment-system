@@ -97,8 +97,8 @@ public class Person {
                     mark[0] += ((Mark) m).getMark();
                     count[0] += 1;
                 });
-        if (count[0] == 0) {
-            return 5;
+        if (count[0] == 0) {            
+            return 0;
         }
         return mark[0] / count[0];
     }

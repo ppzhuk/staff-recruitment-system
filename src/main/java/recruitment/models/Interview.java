@@ -100,6 +100,10 @@ public class Interview {
         EmployerRepository employerRepository = EmployerRepository.getInstance();
         EntityRepository entityRepository = EntityRepository.getInstance();
 
+        if (vacancyId < 1) {
+            return null;
+        }
+        
         Vacancy v = (Vacancy) entityRepository.getById(vacancyId, EntityRepository.VACANCY_TYPE);
         return employerRepository.getById(v.getEmployerId());
     }
@@ -130,14 +134,17 @@ public class Interview {
     @Override
     public String toString() {
         if (applicantName == null || applicantName.equals("")) {
-            applicantName = getApplicant().getName();
+            Applicant a = getApplicant();
+            applicantName = a == null ? "null" : a.getName();
         }
         if (position == null || position.equals("")) {
-            position = ((Vacancy)EntityRepository.getInstance()
-                    .getById(vacancyId, EntityRepository.VACANCY_TYPE)).getPosition();
+            Vacancy v = ((Vacancy)EntityRepository.getInstance()
+                    .getById(vacancyId, EntityRepository.VACANCY_TYPE));
+            position = v == null ? "undefinded" : v.getPosition();
         }
         if (company == null || company.equals("")) {
-            company = getEmployer().getCompanyName();
+            Employer e = getEmployer();
+            company = e == null ? "null" : e.getCompanyName();
         }
         return "(" + id +
                 ") " + applicantName + 

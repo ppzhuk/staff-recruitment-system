@@ -59,7 +59,7 @@ public class VacancyMapper extends BaseMapper implements DataMapper<Vacancy> {
                     .executeAndFetchTable().rows();
         }
 
-        return formVacancy(vacancies.get(0));
+        return vacancies.size() == 0 ? null : formVacancy(vacancies.get(0));
     }
 
     @Override

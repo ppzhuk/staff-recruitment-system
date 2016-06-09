@@ -52,11 +52,7 @@ public class Vacancy {
     public void setStatus(int status, int applicantId) {
         this.status = status;
         this.applicantId = status == STATUS_OPEN ? -1 : applicantId;
-        this.closeDate = Vacancy.DATE_FORMAT.format(
-                new Date(),
-                new StringBuffer(),
-                new FieldPosition(0)
-        ).toString();
+        this.closeDate = getToday();
     }
 
     public String getPosition() {
@@ -114,7 +110,16 @@ public class Vacancy {
         this.closeDate = closeDate;
     }
 
-    
+
+    public String getCompanyName() {
+        if (companyName.equals("")) {
+            return EmployerRepository.getInstance().getById(employerId).getCompanyName();
+        } else {
+            return companyName;    
+        }
+        
+    }
+
     private String companyName = "";
     
     @Override
@@ -126,5 +131,9 @@ public class Vacancy {
                 ") " + position +
                 "  -  " + companyName + 
                 "  -  " + (status == STATUS_OPEN ? "открыта" : "закрыта");
+    }
+    
+    public void resetStatus() {
+        setStatus(STATUS_OPEN, -1);
     }
 }

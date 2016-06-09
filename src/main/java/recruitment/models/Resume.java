@@ -102,4 +102,9 @@ public class Resume {
                 ") " + applicantName + 
                 "  -  " + (inSearch ? "в поиске" : "устроен");
     }
+    
+    public void resetInSearch() {
+        employerVacancyId = -1;
+        inSearch = true;
+    }
 }

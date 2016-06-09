@@ -12,6 +12,8 @@ import recruitment.repository.EntityRepository;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /**
  * Created by Zhuk Pavel on 07.06.2016.
@@ -95,6 +97,17 @@ public class RecruitmentSystemForm {
         logoutBtn.addActionListener(e -> {
             LoginForm.main(null);
             frame.dispose();
+        });
+        vacancyList.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    int index = vacancyList.locationToIndex(e.getPoint());
+                    if (index > -1) {
+                       VacancyForm.main(new String[]{personId+"", vacancyModel.get(index).getId()+""});
+                    }
+                } 
+            }
         });
     }
     

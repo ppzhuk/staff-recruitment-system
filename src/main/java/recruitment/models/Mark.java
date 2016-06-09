@@ -71,5 +71,9 @@ public class Mark {
         this.evaluatedPersonId = evaluatedPersonId;
     }
 
-
+    @Override
+    public String toString() {
+        return  "mark=" + mark +
+                ", comment='" + comment + '\'';
+    }
 }

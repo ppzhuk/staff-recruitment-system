@@ -3,6 +3,7 @@ package recruitment.facade;
 import recruitment.models.Applicant;
 import recruitment.models.Employer;
 import recruitment.models.Interview;
+import recruitment.models.Mark;
 import recruitment.models.Person;
 import recruitment.models.Resume;
 import recruitment.models.Vacancy;
@@ -35,12 +36,27 @@ public class FilteringFacade {
             }
         });
     }
+
+    public void setupMarksListModel(DefaultListModel<Mark> markModel, int employerPersonId) {
+        EntityRepository.getInstance().getAll(EntityRepository.MARK_TYPE).forEach( m -> {
+            if (((Mark)m).getEvaluatedPersonId() == employerPersonId) {
+                markModel.addElement((Mark)m);
+            }
+        });
+    }
     
     private boolean isShowInterview(Interview i) {
         boolean isAdd = true;
-        if(LoginFacade.ROLE == LoginFacade.ROLE_APPLICANT && i.getApplicantId() != ((Applicant)user).getApplicantId() ||
-                (LoginFacade.ROLE == LoginFacade.ROLE_EMPLOYER &&i.getEmployer().getEmployerId() != ((Employer)user).getEmployerId())) {
+        if(LoginFacade.ROLE == LoginFacade.ROLE_APPLICANT && i.getApplicantId() != ((Applicant)user).getApplicantId()) {
             isAdd = false;
+        }
+        Employer employer = i.getEmployer();
+        if (LoginFacade.ROLE == LoginFacade.ROLE_EMPLOYER && employer == null) {
+            isAdd = false;
+        } else {
+            if (LoginFacade.ROLE == LoginFacade.ROLE_EMPLOYER && employer.getEmployerId() != ((Employer)user).getEmployerId()) {
+                isAdd = false;
+            }
         }
         return isAdd;
     }
@@ -145,5 +161,16 @@ public class FilteringFacade {
                 .forEach( v -> {
                     vacancyModel.addElement((Vacancy) v);
                 });
+    }
+    
+    public boolean duplicatePosition(String position, int employerId, int vacancyId) {
+        Object o = EntityRepository.getInstance().getAll(EntityRepository.VACANCY_TYPE)
+                .stream()
+                .filter( v -> 
+                        ((Vacancy)v).getEmployerId() == employerId && 
+                        ((Vacancy)v).getPosition().equals(position) &&
+                        ((Vacancy)v).getId() != vacancyId)
+                .findFirst().orElse(null);
+        return o != null;
     }
 }

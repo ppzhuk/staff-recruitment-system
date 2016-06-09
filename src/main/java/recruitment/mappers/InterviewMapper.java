@@ -113,12 +113,9 @@ public class InterviewMapper extends BaseMapper implements DataMapper<Interview>
     }
 
     public void clearApplicantId(int id) {
-        getAll().stream()
-                .filter(i -> i.getId() == id)
-                .forEach(i -> {
-                    i.setApplicantId(-1);
-                    update(i);
-                });
+        Interview i = getById(id);
+        i.setApplicantId(-1);
+        update(i);
     }
 
     public void clearVacancyId(int id) {

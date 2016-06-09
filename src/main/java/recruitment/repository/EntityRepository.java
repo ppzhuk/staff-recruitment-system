@@ -64,6 +64,7 @@ public class EntityRepository implements BaseRepository {
     public List<?> getAll(int type) {
         switch (type) {
             case MARK_TYPE:
+                // TODO integrate external mark mapper
                 return markMapper.getAll();
             case VACANCY_TYPE:
                 return vacancyMapper.getAll();
@@ -80,6 +81,7 @@ public class EntityRepository implements BaseRepository {
     public Object getById(int id, int type) {
         switch (type) {
             case MARK_TYPE:
+                // TODO integrate external mark mapper
                 return markMapper.getById(id);
             case VACANCY_TYPE:
                 return vacancyMapper.getById(id);
@@ -132,6 +134,10 @@ public class EntityRepository implements BaseRepository {
         }
     }
 
+    public Resume getResumeByApplicantId(int applicantId) {
+        return resumeMapper.getByApplicantId(applicantId);
+    }
+    
     @Override
     public void update(Object o) {
         throw new RuntimeException("use update(object, entityType) instead");

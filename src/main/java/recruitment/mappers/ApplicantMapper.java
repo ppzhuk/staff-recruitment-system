@@ -56,6 +56,10 @@ public class ApplicantMapper extends BaseMapper implements DataMapper<Applicant>
             applicants = con.createQuery(sql)
                     .addParameter("id", id)
                     .executeAndFetchTable().rows();
+            
+            if (applicants.size() == 0) 
+                return null;
+            
             sql = "SELECT * FROM person WHERE id = :person_id";
             persons = con.createQuery(sql)
                     .addParameter("person_id", applicants.get(0).getInteger("person_id"))
