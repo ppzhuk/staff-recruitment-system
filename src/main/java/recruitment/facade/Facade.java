@@ -103,4 +103,33 @@ public class Facade {
         resume.setDescription(description);
         EntityRepository.getInstance().update(resume, EntityRepository.RESUME_TYPE);
     }
+
+    public void updateInterview(Interview i, boolean applicantResultYes, boolean applicantResultNo,
+                                boolean employerResultYes, boolean employerResultNo) {
+        boolean resultBefore = i.getInterviewResult() == Interview.RESULT_POSITIVE;
+        boolean resultAfter  = applicantResultYes && employerResultYes;
+        if (!resultBefore && resultAfter) {
+            if (i.getVacancyId() > 0 && i.getApplicantId() > 0) {
+                i.getApplicant().getResume().closeResume(i.getVacancyId());
+                i.getEmployer().closeVacancy(i.getVacancyId(), i.getApplicantId());
+            }
+        }
+        i.setResultApplicant(
+                applicantResultYes
+                        ? Interview.RESULT_POSITIVE
+                        : (applicantResultNo
+                            ? Interview.RESULT_NEGATIVE
+                            : Interview.RESULT_UNDEFINED
+                        )
+        );
+        i.setResultEmployer(
+                employerResultYes
+                        ? Interview.RESULT_POSITIVE
+                        : (employerResultNo
+                            ? Interview.RESULT_NEGATIVE
+                            : Interview.RESULT_UNDEFINED
+                        )
+        );
+        EntityRepository.getInstance().update(i, EntityRepository.INTERVIEW_TYPE);
+    }
 }

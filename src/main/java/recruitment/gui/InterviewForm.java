@@ -58,7 +58,17 @@ public class InterviewForm {
         OkBtn.addActionListener(e -> frame.dispose());
         cancelBtn.addActionListener(e -> frame.dispose());
         saveBtn.addActionListener(e -> {
-            
+            if (interview.getApplicantId() < 1 || interview.getVacancyId() < 1) {
+                JOptionPane.showMessageDialog(
+                        frame,
+                        "Отсутсвует соискатель или работодатель. Сохранение не возможно.",
+                        "Некорректные данные",
+                        JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            facade.updateInterview(interview, applicantYesRB.isSelected(), applicantNoRB.isSelected(),
+                    employerYesRB.isSelected(), employerNoRB.isSelected());
+            frame.dispose();
         });
         deleteBtn.addActionListener(e -> {
             int confirm = JOptionPane.showOptionDialog(frame,

@@ -1,6 +1,7 @@
 package recruitment.models;
 
 import recruitment.repository.ApplicantRepository;
+import recruitment.repository.EntityRepository;
 
 /**
  * Created by Nataly on 23.05.2016.
@@ -106,5 +107,11 @@ public class Resume {
     public void resetInSearch() {
         employerVacancyId = -1;
         inSearch = true;
+    }
+
+    public void closeResume(int employerVacancyId) {
+        this.employerVacancyId = employerVacancyId;
+        this.inSearch = false;
+        EntityRepository.getInstance().update(this, EntityRepository.RESUME_TYPE);
     }
 }
