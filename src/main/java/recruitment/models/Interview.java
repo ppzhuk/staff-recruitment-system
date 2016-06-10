@@ -140,7 +140,7 @@ public class Interview {
         if (position == null || position.equals("")) {
             Vacancy v = ((Vacancy)EntityRepository.getInstance()
                     .getById(vacancyId, EntityRepository.VACANCY_TYPE));
-            position = v == null ? "undefinded" : v.getPosition();
+            position = v == null ? "undefined" : v.getPosition();
         }
         if (company == null || company.equals("")) {
             Employer e = getEmployer();

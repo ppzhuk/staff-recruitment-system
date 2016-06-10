@@ -141,7 +141,7 @@
           </grid>
         </constraints>
         <properties/>
-        <border type="none" title="Интервью"/>
+        <border type="none" title="Собеседования"/>
         <children>
           <scrollpane id="e134d">
             <constraints>

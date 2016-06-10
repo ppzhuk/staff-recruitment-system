@@ -11,8 +11,7 @@ import java.awt.*;
 public class EmployerRegistrationForm {
 
     public static final String html = "<html><body style='width:250px'>";
-    
-    private static JFrame frame;
+
     private JPanel panel;
     private JTextField fioTF;
     private JPasswordField passTF;
@@ -26,7 +25,7 @@ public class EmployerRegistrationForm {
     private JTextField siteTF;
     private JLabel errorMsgLabel;
 
-    public EmployerRegistrationForm() {
+    public EmployerRegistrationForm(JFrame frame) {
         fioTF.addActionListener(e -> loginTF.requestFocus());
         loginTF.addActionListener(e -> passTF.requestFocus());
         passTF.addActionListener(e -> submitPassTF.requestFocus());
@@ -67,8 +66,8 @@ public class EmployerRegistrationForm {
     
 
     public static void main(String[] args) {
-        frame = new JFrame("Регистрация работодателя");
-        frame.setContentPane(new EmployerRegistrationForm().panel);
+        JFrame frame = new JFrame("Регистрация работодателя");
+        frame.setContentPane(new EmployerRegistrationForm(frame).panel);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);

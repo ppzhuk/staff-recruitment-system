@@ -1,5 +1,6 @@
 package recruitment.facade;
 
+import recruitment.models.Interview;
 import recruitment.models.Person;
 import recruitment.models.Resume;
 import recruitment.models.Vacancy;
@@ -26,7 +27,13 @@ public class Facade {
     public String getApplicantFIO(Resume resume) {
         return ApplicantRepository.getInstance().getById(resume.getApplicantId()).getName();
     }
-    
+
+    public Interview getInterview(int interviewId) {
+        return (Interview)
+                EntityRepository.getInstance().getById(interviewId, EntityRepository.INTERVIEW_TYPE);
+    }
+
+
     public int getEmployerIdByPersonId(int personId) {
         return EmployerRepository.getInstance()
                 .getByPersonId(personId)
@@ -46,6 +53,10 @@ public class Facade {
     public int getPersonIdByApplicantId(int applicantId) {
         return ApplicantRepository.getInstance().getById(applicantId).getPersonId();
     }
+
+    public Resume getResumeByApplicantId(int applicantId) {
+        return EntityRepository.getInstance().getResumeByApplicantId(applicantId);
+    }
     
     public Person getPerson(int employerPersonId) {
         return PersonRepository.getInstance().getById(employerPersonId); 
@@ -57,6 +68,10 @@ public class Facade {
 
     public void deleteResume(int resumeId) {
         EntityRepository.getInstance().remove(resumeId, EntityRepository.RESUME_TYPE);
+    }
+    
+    public void deleteInterview(int interviewId) {
+        EntityRepository.getInstance().remove(interviewId, EntityRepository.INTERVIEW_TYPE);
     }
         
     public void updateVacancy(Vacancy vacancy, String position, double salary, String requirements) {

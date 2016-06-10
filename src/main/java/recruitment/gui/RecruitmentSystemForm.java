@@ -19,7 +19,6 @@ import java.awt.event.MouseEvent;
  * Created by Zhuk Pavel on 07.06.2016.
  */
 public class RecruitmentSystemForm {
-    private static JFrame frame;
     private JButton vacancyCreateButton;
     private JButton interviewCreateButton;
     private JButton markCreateButton;
@@ -51,7 +50,7 @@ public class RecruitmentSystemForm {
     private DefaultListModel<Resume> resumeModel = new DefaultListModel<>();
     private DefaultListModel<Interview> interviewModel = new DefaultListModel<>();
 
-    public RecruitmentSystemForm() {
+    public RecruitmentSystemForm(JFrame frame) {
         user = new LoginFacade().getUser(personId);
         filteringFacade = new FilteringFacade(user);
 
@@ -120,6 +119,18 @@ public class RecruitmentSystemForm {
                 }
             }
         });
+        
+        interviewList.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    int index = interviewList.locationToIndex(e.getPoint());
+                    if (index > -1) {
+                        InterviewForm.main(new String[]{personId+"", interviewModel.get(index).getId()+""});
+                    }
+                }
+            }
+        });
     }
     
     private void dropVisibility() {
@@ -147,8 +158,8 @@ public class RecruitmentSystemForm {
 
     public static void main(String[] args) {
         personId = Integer.parseInt(args[0]);
-        frame = new JFrame("Подбор персонала");
-        frame.setContentPane(new RecruitmentSystemForm().panel);
+        JFrame frame = new JFrame("Подбор персонала");
+        frame.setContentPane(new RecruitmentSystemForm(frame).panel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);

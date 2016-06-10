@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
  * Created by Zhuk Pavel on 07.06.2016.
  */
 public class LoginForm {
-    private static JFrame frame;
+    private JFrame frame;
     private JTextField loginTF;
     private JPasswordField passwordTF;
     private JButton loginButton;
@@ -20,7 +20,8 @@ public class LoginForm {
     private JPanel panel;
     private JLabel incorrectDataLabel;
 
-    public LoginForm() {
+    public LoginForm(JFrame frame) {
+        this.frame = frame;
         loginButton.addActionListener(loginlistener);
         passwordTF.addActionListener(loginlistener);
         loginTF.addActionListener(e -> passwordTF.requestFocus());
@@ -48,8 +49,8 @@ public class LoginForm {
     }
     
     public static void main(String[] args) {
-        frame = new JFrame("Авторизация");
-        frame.setContentPane(new LoginForm().panel);
+        JFrame frame = new JFrame("Авторизация");
+        frame.setContentPane(new LoginForm(frame).panel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);

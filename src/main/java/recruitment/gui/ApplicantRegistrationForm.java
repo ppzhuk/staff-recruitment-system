@@ -9,7 +9,6 @@ import java.awt.*;
  * Created by Zhuk Pavel on 08.06.2016.
  */
 public class ApplicantRegistrationForm {
-    private static JFrame frame;
     private JPanel panel;
     private JButton okBtn;
     private JButton cancelBtn;
@@ -24,7 +23,7 @@ public class ApplicantRegistrationForm {
     private JTextArea educationTA;
     private JTextArea descriptionTA;
 
-    public ApplicantRegistrationForm() {
+    public ApplicantRegistrationForm(JFrame frame) {
         fioTF.addActionListener(e -> loginTF.requestFocus());
         loginTF.addActionListener(e -> passwordTF.requestFocus());
         passwordTF.addActionListener(e -> submitPasswordTF.requestFocus());
@@ -67,8 +66,8 @@ public class ApplicantRegistrationForm {
     }
 
     public static void main(String[] args) {
-        frame = new JFrame("Регистрация соискателя");
-        frame.setContentPane(new ApplicantRegistrationForm().panel);
+        JFrame frame = new JFrame("Регистрация соискателя");
+        frame.setContentPane(new ApplicantRegistrationForm(frame).panel);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);

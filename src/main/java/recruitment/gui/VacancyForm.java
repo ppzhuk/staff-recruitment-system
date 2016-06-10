@@ -13,7 +13,6 @@ import javax.swing.*;
  * Created by Zhuk Pavel on 09.06.2016.
  */
 public class VacancyForm {
-    private static JFrame frame;
     private JPanel panel;
     private JList marksList;
     private JCheckBox statusCB;
@@ -41,7 +40,7 @@ public class VacancyForm {
     private LoginFacade loginFacade;
     private Facade facade;
 
-    public VacancyForm() {
+    public VacancyForm(JFrame frame) {
         loginFacade = new LoginFacade();
         filteringFacade = new FilteringFacade(user);
         facade = new Facade();
@@ -156,8 +155,8 @@ public class VacancyForm {
     public static void main(String[] args) {
         personId = Integer.parseInt(args[0]);
         vacancyId = Integer.parseInt(args[1]);
-        frame = new JFrame("Вакансия");
-        frame.setContentPane(new VacancyForm().panel);
+        JFrame frame = new JFrame("Вакансия");
+        frame.setContentPane(new VacancyForm(frame).panel);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
