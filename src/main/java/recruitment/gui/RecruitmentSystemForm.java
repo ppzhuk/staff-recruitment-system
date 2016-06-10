@@ -12,6 +12,8 @@ import recruitment.repository.EntityRepository;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -129,6 +131,15 @@ public class RecruitmentSystemForm {
                         InterviewForm.main(new String[]{personId+"", interviewModel.get(index).getId()+""});
                     }
                 }
+            }
+        });
+        vacancyCreateButton.addActionListener(e -> CreateVacancyForm.main(new String[] {personId+""}));
+        personDataUpdateButton.addActionListener(e -> PersonalDataForm.main(new String[] {personId+""}));
+        usernameL.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                user = new LoginFacade().getUser(personId);
+                usernameL.setText(user.getName());
             }
         });
     }

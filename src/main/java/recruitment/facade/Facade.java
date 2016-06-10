@@ -132,4 +132,24 @@ public class Facade {
         );
         EntityRepository.getInstance().update(i, EntityRepository.INTERVIEW_TYPE);
     }
+
+    public boolean isSalaryCorrect(String salaryText) {
+        boolean correct = true;
+        double salary = -1;
+        try {
+            salary = Double.parseDouble(salaryText);
+        } catch(NumberFormatException e) {
+            correct = false;
+        }
+        return correct && salary >= 0.0;
+    }
+    
+    public void addNewVacancy(String position, double salary, String requirements, int employerId) {
+        EntityRepository.getInstance().save(new Vacancy(
+                employerId, 
+                position, 
+                requirements, 
+                salary
+        ));
+    }
 }

@@ -129,7 +129,7 @@ public class ResumeForm {
             statusCB.setEnabled(!resume.isInSearch());
             saveBtn.setVisible(true);
             cancelBtn.setVisible(true);
-            deleteBtn.setVisible(true);
+            // deleteBtn.setVisible(true);
         }
     }
     

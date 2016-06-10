@@ -60,7 +60,7 @@ public class VacancyForm {
             if (positionTF.getText().equals("") || requirementsTA.getText().equals("")) {
                 errorMessage = "Поля со * обязательны к заполнению. ";
             }
-            if (!isSalaryCorrect(salaryTF.getText())) {
+            if (!facade.isSalaryCorrect(salaryTF.getText())) {
                 errorMessage += "Не верно указана зарплата.";
             }
             if (!errorMessage.equals("")) {
@@ -100,17 +100,6 @@ public class VacancyForm {
                 frame.dispose();
             }
         });
-    }
-
-    private boolean isSalaryCorrect(String salaryText) {
-        boolean correct = true;
-        double salary = -1;
-        try {
-            salary = Double.parseDouble(salaryTF.getText());
-        } catch(NumberFormatException e) {
-            correct = false;
-        }
-        return correct && salary >= 0.0;
     }
 
     private void setupVacancy() {
