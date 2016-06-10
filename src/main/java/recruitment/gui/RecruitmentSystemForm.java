@@ -109,6 +109,17 @@ public class RecruitmentSystemForm {
                 } 
             }
         });
+        resumeList.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    int index = resumeList.locationToIndex(e.getPoint());
+                    if (index > -1) {
+                        ResumeForm.main(new String[]{personId+"", resumeModel.get(index).getId()+""});
+                    }
+                }
+            }
+        });
     }
     
     private void dropVisibility() {
