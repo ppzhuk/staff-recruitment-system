@@ -63,11 +63,24 @@ public class InterviewForm {
                         frame,
                         "Отсутсвует соискатель или работодатель. Сохранение не возможно.",
                         "Некорректные данные",
-                        JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.WARNING_MESSAGE
+                );
                 return;
+            } 
+            
+            if (!facade.isVacancyAndResumeFree(interview.getVacancyId(), interview.getApplicantId())) {
+                JOptionPane.showMessageDialog(
+                        frame,
+                        "Вакансия уже закрыта или соискатель уже струдоустроен.\n Результаты собеседование не будут применены.",
+                        "Некорректные данные",
+                        JOptionPane.WARNING_MESSAGE
+                );
+                facade.updateInterview(interview, applicantYesRB.isSelected(), applicantNoRB.isSelected(),
+                        employerYesRB.isSelected(), employerNoRB.isSelected(), false);
+            } else {
+                facade.updateInterview(interview, applicantYesRB.isSelected(), applicantNoRB.isSelected(),
+                        employerYesRB.isSelected(), employerNoRB.isSelected(), true);
             }
-            facade.updateInterview(interview, applicantYesRB.isSelected(), applicantNoRB.isSelected(),
-                    employerYesRB.isSelected(), employerNoRB.isSelected());
             frame.dispose();
         });
         deleteBtn.addActionListener(e -> {

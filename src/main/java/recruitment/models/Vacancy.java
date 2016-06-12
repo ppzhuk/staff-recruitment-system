@@ -14,7 +14,7 @@ public class Vacancy {
     public static final int STATUS_OPEN = -1;
     public static final int STATUS_CLOSE = 1;
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy.MM.dd");
-    public static final Pattern datePattern = Pattern.compile("dddd\\.dd\\.dd");
+    public static final Pattern datePattern = Pattern.compile("(?:[0-9]{2})[0-9]{2}[.][0-1][1-9][.][0-3][0-9]");
     private int id;
     private int employerId;
     private String position;
@@ -135,5 +135,9 @@ public class Vacancy {
     
     public void resetStatus() {
         setStatus(STATUS_OPEN, -1);
+    }
+    
+    public boolean isOpen() {
+        return status == STATUS_OPEN;
     }
 }

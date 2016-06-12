@@ -1,5 +1,6 @@
 package recruitment.repository;
 
+import recruitment.mappers.ExternalMarkMapper;
 import recruitment.mappers.InterviewMapper;
 import recruitment.mappers.MarkMapper;
 import recruitment.mappers.ResumeMapper;
@@ -64,7 +65,6 @@ public class EntityRepository implements BaseRepository {
     public List<?> getAll(int type) {
         switch (type) {
             case MARK_TYPE:
-                // TODO integrate external mark mapper
                 return markMapper.getAll();
             case VACANCY_TYPE:
                 return vacancyMapper.getAll();
@@ -77,11 +77,22 @@ public class EntityRepository implements BaseRepository {
         }
     }
 
+    public List<Mark> getPersonMarks(int evaluatedPersonId) {
+        List<Mark> storedMarks = markMapper.getPersonMarks(evaluatedPersonId);
+        if (storedMarks.size() == 0) {
+            String pathToSource = "src\\main\\resources\\marks.json";
+            List<Mark> externalMarks = new ExternalMarkMapper(pathToSource).getPersonMarks(evaluatedPersonId);
+
+            System.out.println("Get marks from external storage. Count: " + externalMarks.size());
+            
+            storedMarks.addAll(externalMarks);
+        }
+        return storedMarks;
+    }
 
     public Object getById(int id, int type) {
         switch (type) {
             case MARK_TYPE:
-                // TODO integrate external mark mapper
                 return markMapper.getById(id);
             case VACANCY_TYPE:
                 return vacancyMapper.getById(id);

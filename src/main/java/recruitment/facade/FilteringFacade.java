@@ -10,6 +10,8 @@ import recruitment.models.Vacancy;
 import recruitment.repository.EntityRepository;
 
 import javax.swing.*;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by Zhuk Pavel on 08.06.2016.
@@ -37,12 +39,10 @@ public class FilteringFacade {
         });
     }
 
-    public void setupMarksListModel(DefaultListModel<Mark> markModel, int employerPersonId) {
-        EntityRepository.getInstance().getAll(EntityRepository.MARK_TYPE).forEach( m -> {
-            if (((Mark)m).getEvaluatedPersonId() == employerPersonId) {
-                markModel.addElement((Mark)m);
-            }
-        });
+    public void setupMarksListModel(DefaultListModel<Mark> markModel, int evaluatedPersonId) {
+        EntityRepository.getInstance()
+                .getPersonMarks(evaluatedPersonId)
+                .forEach(markModel::addElement);
     }
     
     private boolean isShowInterview(Interview i) {
@@ -172,5 +172,33 @@ public class FilteringFacade {
                         ((Vacancy)v).getId() != vacancyId)
                 .findFirst().orElse(null);
         return o != null;
+    }
+    
+    public static Resume[] getUnemployedResumes() {
+        List<Resume> list =  EntityRepository.getInstance()
+                .getAll(EntityRepository.RESUME_TYPE)
+                .stream()
+                .filter(r -> ((Resume)r).isInSearch())
+                .map( r -> (Resume)r)
+                .collect(Collectors.toList());
+        Resume[] arr = new Resume[list.size()];
+        for (int i = 0; i < list.size(); ++i) {
+            arr[i] = list.get(i);
+        }
+        return arr;
+    }
+    
+    public static Vacancy[] getOpenVacancies() {
+        List<Vacancy> list =  EntityRepository.getInstance()
+                .getAll(EntityRepository.VACANCY_TYPE)
+                .stream()
+                .filter(r -> ((Vacancy)r).isOpen())
+                .map( r -> (Vacancy)r)
+                .collect(Collectors.toList());
+        Vacancy[] arr = new Vacancy[list.size()];
+        for (int i = 0; i < list.size(); ++i) {
+            arr[i] = list.get(i);
+        }
+        return arr;
     }
 }

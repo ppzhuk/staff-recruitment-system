@@ -30,6 +30,16 @@ public class MarkMapper extends BaseMapper implements DataMapper<Mark> {
         }
     }
 
+    public List<Mark> getPersonMarks(int evaluatedPersonId) {
+        String sql = "SELECT * FROM mark WHERE evaluated_person_id=:evaluated_person_id";
+
+        try (Connection con = sql2o.open()) {
+            return con.createQuery(sql)
+                    .addParameter("evaluated_person_id", evaluatedPersonId)
+                    .executeAndFetch(Mark.class);
+        }
+    }
+    
     @Override
     public Mark getById(long id) {
         String sql =

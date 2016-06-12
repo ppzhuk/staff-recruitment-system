@@ -90,11 +90,9 @@ public class Person {
         mark[0] = 0;
         int count[] = new int[1];
         count[0] = 0;
-        repo.getAll(EntityRepository.MARK_TYPE)
-                .stream()
-                .filter(m -> ((Mark) m).getEvaluatedPersonId() == id)
+        repo.getPersonMarks(id)
                 .forEach(m -> {
-                    mark[0] += ((Mark) m).getMark();
+                    mark[0] += m.getMark();
                     count[0] += 1;
                 });
         if (count[0] == 0) {            

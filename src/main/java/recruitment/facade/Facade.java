@@ -105,10 +105,10 @@ public class Facade {
     }
 
     public void updateInterview(Interview i, boolean applicantResultYes, boolean applicantResultNo,
-                                boolean employerResultYes, boolean employerResultNo) {
+                                boolean employerResultYes, boolean employerResultNo, boolean isUpdate) {
         boolean resultBefore = i.getInterviewResult() == Interview.RESULT_POSITIVE;
         boolean resultAfter  = applicantResultYes && employerResultYes;
-        if (!resultBefore && resultAfter) {
+        if (!resultBefore && resultAfter && isUpdate) {
             if (i.getVacancyId() > 0 && i.getApplicantId() > 0) {
                 i.getApplicant().getResume().closeResume(i.getVacancyId());
                 i.getEmployer().closeVacancy(i.getVacancyId(), i.getApplicantId());
@@ -151,5 +151,23 @@ public class Facade {
                 requirements, 
                 salary
         ));
+    }
+    
+    public boolean isDateCorrect(String dateString) {
+        return Vacancy.datePattern.matcher(dateString).matches();
+    }
+    
+    public void addNewInterview(int applicantId, int vacancyId, String interviewDate) {
+        EntityRepository.getInstance().save(new Interview(
+                applicantId,
+                vacancyId, 
+                interviewDate
+        ));
+    }
+    
+    public boolean isVacancyAndResumeFree(int vacancyId, int applicantId) {
+        Resume r = getResumeByApplicantId(applicantId);
+        Vacancy v = getVacancy(vacancyId);
+        return r.isInSearch() && v.isOpen();
     }
 }

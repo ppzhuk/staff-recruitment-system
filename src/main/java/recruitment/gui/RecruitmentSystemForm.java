@@ -138,10 +138,9 @@ public class RecruitmentSystemForm {
         usernameL.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                user = new LoginFacade().getUser(personId);
-                usernameL.setText(user.getName());
             }
         });
+        interviewCreateButton.addActionListener(e -> CreateInterviewForm.main(new String[] {personId+""}));
     }
     
     private void dropVisibility() {
