@@ -8,6 +8,8 @@ import recruitment.models.Person;
 import recruitment.models.Resume;
 import recruitment.models.Vacancy;
 import recruitment.repository.EntityRepository;
+import recruitment.repository.ManagerRepository;
+import recruitment.repository.PersonRepository;
 
 import javax.swing.*;
 import java.util.List;
@@ -133,6 +135,15 @@ public class FilteringFacade {
         return arr;
     }
     
+    public static Person[] getAllEvaluatedPersons() {
+        List<Person> list = PersonRepository.getInstance().getAllNonManagers();
+        Person[] arr = new Person[list.size()];
+        for (int i = 0; i < list.size(); ++i) {
+            arr[i] = list.get(i);
+        }
+        return arr;
+    }
+    
     public void filterCloseResume(DefaultListModel<Resume> resumeModel) {
         resumeModel.clear();
         EntityRepository.getInstance().getAll(EntityRepository.RESUME_TYPE)
@@ -210,5 +221,5 @@ public class FilteringFacade {
                 .filter( m -> ((Mark)m).getManagerId() == managerId)
                 .map( m -> (Mark)m )
                 .forEach(markModel::addElement);
-    } 
+    }
 }

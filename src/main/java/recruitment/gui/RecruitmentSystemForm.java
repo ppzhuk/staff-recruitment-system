@@ -168,6 +168,7 @@ public class RecruitmentSystemForm {
             }
         });
         interviewCreateButton.addActionListener(e -> CreateInterviewForm.main(new String[] {personId+""}));
+        markCreateButton.addActionListener(e -> CreateMarkForm.main(new String[] {personId+""}));
 
     }
     

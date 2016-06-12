@@ -94,4 +94,16 @@ public class PersonMapper extends BaseMapper implements DataMapper<Person> {
                     .executeUpdate();
         }
     }
+    
+    public List<Person> getAllNonManagers() {
+        String sql = "SELECT p.id, p.name, p.email, p.phone_number, p.login, p.password " +
+                "FROM person AS p, employer AS e, applicant AS a " +
+                "WHERE p.id = e.person_id OR p.id = a.person_id " +
+                "GROUP BY p.id;";
+        
+        try (Connection con = sql2o.open()) {
+            return con.createQuery(sql)
+                    .executeAndFetch(Person.class);
+        }
+    }
 }

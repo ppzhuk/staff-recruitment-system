@@ -1,5 +1,6 @@
 package recruitment.models;
 
+import recruitment.facade.Facade;
 import recruitment.repository.EntityRepository;
 
 /**
@@ -109,5 +110,14 @@ public class Person {
         this.phoneNumber = phoneNumber;
     }
     
-
+    private String pname;
+    
+    @Override
+    public String toString() {
+        if (pname == null) {
+            pname = new Facade().defineEvaluatedPersonName(id);
+        }
+        return "id=" + id + "  -  " +
+                pname;
+    }
 }

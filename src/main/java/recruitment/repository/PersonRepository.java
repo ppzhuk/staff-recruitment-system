@@ -59,4 +59,8 @@ public class PersonRepository implements BaseRepository {
     public void remove(int id) {
         mapper.delete(id);
     }
+    
+    public List<Person> getAllNonManagers() {
+        return mapper.getAllNonManagers();
+    }
 }

@@ -1,6 +1,7 @@
 import com.google.gson.Gson;
 import recruitment.facade.Facade;
 import recruitment.gui.LoginForm;
+import recruitment.mappers.PersonMapper;
 import recruitment.models.Mark;
 import recruitment.services.RestAPI;
 
@@ -16,7 +17,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
 //        RestAPI.start();
 
-        SwingUtilities.invokeLater(() -> LoginForm.main(null));
+       SwingUtilities.invokeLater(() -> LoginForm.main(null));
 /*
         Gson gson = new Gson();
         Mark[] arr = gson.fromJson(new FileReader("src\\main\\resources\\marks.json"), Mark[].class);
@@ -24,5 +25,6 @@ public class Main {
         for (Mark m : arr) {
             System.out.println(m);
         }*/
+
     }
 }

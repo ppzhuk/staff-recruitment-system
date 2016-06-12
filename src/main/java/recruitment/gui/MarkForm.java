@@ -31,7 +31,7 @@ public class MarkForm {
     private LoginFacade loginFacade;
     private Facade facade;
 
-    MarkForm(JFrame frame) {
+    public MarkForm(JFrame frame) {
         loginFacade = new LoginFacade();
         filteringFacade = new FilteringFacade(manager);
         facade = new Facade();

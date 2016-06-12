@@ -204,4 +204,8 @@ public class Facade {
         m.setMark(mark);
         EntityRepository.getInstance().update(m, EntityRepository.MARK_TYPE);
     }
+    
+    public void saveMark(int managerId, int evaluatedPersonId, String comment, int mark) {
+        EntityRepository.getInstance().save(new Mark(managerId, evaluatedPersonId, mark, comment));
+    }
 }
