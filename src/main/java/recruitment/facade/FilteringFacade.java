@@ -105,6 +105,34 @@ public class FilteringFacade {
                 });
     }
 
+    public static Resume[] getUnemployedResumes() {
+        List<Resume> list =  EntityRepository.getInstance()
+                .getAll(EntityRepository.RESUME_TYPE)
+                .stream()
+                .filter(r -> ((Resume)r).isInSearch())
+                .map( r -> (Resume)r)
+                .collect(Collectors.toList());
+        Resume[] arr = new Resume[list.size()];
+        for (int i = 0; i < list.size(); ++i) {
+            arr[i] = list.get(i);
+        }
+        return arr;
+    }
+
+    public static Vacancy[] getOpenVacancies() {
+        List<Vacancy> list =  EntityRepository.getInstance()
+                .getAll(EntityRepository.VACANCY_TYPE)
+                .stream()
+                .filter(r -> ((Vacancy)r).isOpen())
+                .map( r -> (Vacancy)r)
+                .collect(Collectors.toList());
+        Vacancy[] arr = new Vacancy[list.size()];
+        for (int i = 0; i < list.size(); ++i) {
+            arr[i] = list.get(i);
+        }
+        return arr;
+    }
+    
     public void filterCloseResume(DefaultListModel<Resume> resumeModel) {
         resumeModel.clear();
         EntityRepository.getInstance().getAll(EntityRepository.RESUME_TYPE)
@@ -173,32 +201,14 @@ public class FilteringFacade {
                 .findFirst().orElse(null);
         return o != null;
     }
-    
-    public static Resume[] getUnemployedResumes() {
-        List<Resume> list =  EntityRepository.getInstance()
-                .getAll(EntityRepository.RESUME_TYPE)
+        
+    public void setupMarkModel(DefaultListModel<Mark> markModel, int managerId) {
+        markModel.clear();
+        EntityRepository.getInstance()
+                .getAll(EntityRepository.MARK_TYPE)
                 .stream()
-                .filter(r -> ((Resume)r).isInSearch())
-                .map( r -> (Resume)r)
-                .collect(Collectors.toList());
-        Resume[] arr = new Resume[list.size()];
-        for (int i = 0; i < list.size(); ++i) {
-            arr[i] = list.get(i);
-        }
-        return arr;
-    }
-    
-    public static Vacancy[] getOpenVacancies() {
-        List<Vacancy> list =  EntityRepository.getInstance()
-                .getAll(EntityRepository.VACANCY_TYPE)
-                .stream()
-                .filter(r -> ((Vacancy)r).isOpen())
-                .map( r -> (Vacancy)r)
-                .collect(Collectors.toList());
-        Vacancy[] arr = new Vacancy[list.size()];
-        for (int i = 0; i < list.size(); ++i) {
-            arr[i] = list.get(i);
-        }
-        return arr;
-    }
+                .filter( m -> ((Mark)m).getManagerId() == managerId)
+                .map( m -> (Mark)m )
+                .forEach(markModel::addElement);
+    } 
 }

@@ -42,11 +42,6 @@ public class LoginForm {
             frame.dispose();
         }
     };
-
-
-    private void createUIComponents() {
-
-    }
     
     public static void main(String[] args) {
         JFrame frame = new JFrame("Авторизация");

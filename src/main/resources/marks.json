@@ -1,6 +1,6 @@
-[{"id":-1,"managerId":-1,"evaluatedPersonId":4,"mark":5,"comment":"очень хорошо! (ext)"}, 
-  {"id":-1,"managerId":-1,"evaluatedPersonId":4,"mark":3,"comment":"так себе! (ext)"},
-  {"id":-1,"managerId":-1,"evaluatedPersonId":7,"mark":1,"comment":"внешнаяя оценка, которая не будет учтена."},
-  {"id":-1,"managerId":-1,"evaluatedPersonId":8,"mark":1,"comment":"ужасно! (ext)"},
-  {"id":-1,"managerId":-1,"evaluatedPersonId":8,"mark":4}
+[{"evaluatedPersonId":4,"mark":5,"comment":"очень хорошо! (ext)"}, 
+  {"evaluatedPersonId":4,"mark":3,"comment":"так себе! (ext)"},
+  {"evaluatedPersonId":7,"mark":1,"comment":"внешнаяя оценка, которая не будет учтена."},
+  {"evaluatedPersonId":8,"mark":1,"comment":"ужасно! (ext)"},
+  {"evaluatedPersonId":8,"mark":4}
 ]

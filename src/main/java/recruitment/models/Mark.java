@@ -1,5 +1,7 @@
 package recruitment.models;
 
+import recruitment.facade.Facade;
+
 /**
  * Created by Pavel on 23.05.2016.
  */
@@ -71,9 +73,15 @@ public class Mark {
         this.evaluatedPersonId = evaluatedPersonId;
     }
 
+    private String pname;
+    
     @Override
     public String toString() {
+        if (pname == null) {
+            pname = new Facade().defineEvaluatedPersonName(evaluatedPersonId);
+        }
         return  "mark=" + mark +
-                ", comment='" + comment + '\'';
+                ", comment='" + comment + '\''+
+                "     -     " + pname;
     }
 }

@@ -5,6 +5,8 @@ import recruitment.facade.LoginFacade;
 import recruitment.models.Applicant;
 import recruitment.models.Employer;
 import recruitment.models.Interview;
+import recruitment.models.Manager;
+import recruitment.models.Mark;
 import recruitment.models.Person;
 import recruitment.models.Resume;
 import recruitment.models.Vacancy;
@@ -16,6 +18,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.logging.Filter;
 
 /**
  * Created by Zhuk Pavel on 07.06.2016.
@@ -43,6 +46,9 @@ public class RecruitmentSystemForm {
     private JRadioButton interviewOpenRB;
     private JRadioButton interviewPassedRB;
     private JRadioButton interviewAllRB;
+    private JList marksList;
+    private JButton refreshMarksBtn;
+    private JPanel marksPanel;
 
     private Person user;
     private static int personId;
@@ -51,6 +57,7 @@ public class RecruitmentSystemForm {
     private DefaultListModel<Vacancy> vacancyModel = new DefaultListModel<>();
     private DefaultListModel<Resume> resumeModel = new DefaultListModel<>();
     private DefaultListModel<Interview> interviewModel = new DefaultListModel<>();
+    private DefaultListModel<Mark> markModel = new DefaultListModel<>();
 
     public RecruitmentSystemForm(JFrame frame) {
         user = new LoginFacade().getUser(personId);
@@ -59,10 +66,16 @@ public class RecruitmentSystemForm {
         dropVisibility();
         
         filteringFacade.setupListsModels(vacancyModel, resumeModel, interviewModel);
+        if (LoginFacade.ROLE == LoginFacade.ROLE_MANAGER) {
+            filteringFacade.setupMarkModel(markModel, ((Manager)user).getManagerId());
+            marksList.setModel(markModel);
+        }
         vacancyList.setModel(vacancyModel);
         resumeList.setModel(resumeModel);
         interviewList.setModel(interviewModel);
 
+        
+        
         usernameL.setMaximumSize(new Dimension(200, 15));
         usernameL.setPreferredSize(new Dimension(200, 15));
         usernameL.setMinimumSize(new Dimension(200, 15));
@@ -133,6 +146,20 @@ public class RecruitmentSystemForm {
                 }
             }
         });
+        marksList.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    int index = marksList.locationToIndex(e.getPoint());
+                    if (index > -1) {
+                        MarkForm.main(new String[]{personId+"", markModel.get(index).getId()+""});
+                    }
+                }
+            }
+        });
+        refreshMarksBtn.addActionListener( e -> {
+            filteringFacade.setupMarkModel(markModel, ((Manager)user).getManagerId());
+        });
         vacancyCreateButton.addActionListener(e -> CreateVacancyForm.main(new String[] {personId+""}));
         personDataUpdateButton.addActionListener(e -> PersonalDataForm.main(new String[] {personId+""}));
         usernameL.addMouseListener(new MouseAdapter() {
@@ -141,6 +168,7 @@ public class RecruitmentSystemForm {
             }
         });
         interviewCreateButton.addActionListener(e -> CreateInterviewForm.main(new String[] {personId+""}));
+
     }
     
     private void dropVisibility() {
@@ -154,12 +182,14 @@ public class RecruitmentSystemForm {
                 interviewCreateButton.setVisible(false);
                 markCreateButton.setVisible(false);
                 resumeOwnRB.setVisible(false);
+                marksPanel.setVisible(false);
                 break;
             case LoginFacade.ROLE_APPLICANT:
                 interviewCreateButton.setVisible(false);
                 markCreateButton.setVisible(false);
                 vacancyCreateButton.setVisible(false);
                 vacancyOwnRB.setVisible(false);
+                marksPanel.setVisible(false);
                 break;
             default:
                 throw new IllegalArgumentException("Undefined client role.");

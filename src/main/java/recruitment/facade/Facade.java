@@ -1,6 +1,9 @@
 package recruitment.facade;
 
+import recruitment.models.Applicant;
+import recruitment.models.Employer;
 import recruitment.models.Interview;
+import recruitment.models.Mark;
 import recruitment.models.Person;
 import recruitment.models.Resume;
 import recruitment.models.Vacancy;
@@ -33,16 +36,23 @@ public class Facade {
                 EntityRepository.getInstance().getById(interviewId, EntityRepository.INTERVIEW_TYPE);
     }
 
-
-    public int getEmployerIdByPersonId(int personId) {
+    public Employer getEmployerByPersonId(int personId) {
         return EmployerRepository.getInstance()
-                .getByPersonId(personId)
+                .getByPersonId(personId);
+    }
+
+    public Applicant getApplicantByPersonId(int personId) {
+        return ApplicantRepository.getInstance()
+                .getByPersonId(personId);
+    }
+    
+    public int getEmployerIdByPersonId(int personId) {
+        return getEmployerByPersonId(personId)
                 .getEmployerId();
     }
 
     public int getApplicantIdByPersonId(int personId) {
-        return ApplicantRepository.getInstance()
-                .getByPersonId(personId)
+        return getApplicantByPersonId(personId)
                 .getApplicantId();
     }
     
@@ -169,5 +179,29 @@ public class Facade {
         Resume r = getResumeByApplicantId(applicantId);
         Vacancy v = getVacancy(vacancyId);
         return r.isInSearch() && v.isOpen();
+    }
+    
+    public Mark getMark(int markId) {
+        return (Mark) EntityRepository.getInstance().getById(markId, EntityRepository.MARK_TYPE);
+    }
+    
+    public String defineEvaluatedPersonName(int evaluatedPersonId) {
+
+        Employer e = getEmployerByPersonId(evaluatedPersonId);
+        if (e != null) {
+            return e.getName() + " (" + e.getCompanyName() + ")";
+        } else {
+            Applicant a = getApplicantByPersonId(evaluatedPersonId);
+            if (a != null) {
+                return a.getName() + " (соискатель)";
+            }
+            throw new IllegalArgumentException("Оцениваемый не является работодателем или соискателем");
+        }
+    }
+    
+    public void updateMark(Mark m, String comment, int mark) {
+        m.setComment(comment);
+        m.setMark(mark);
+        EntityRepository.getInstance().update(m, EntityRepository.MARK_TYPE);
     }
 }

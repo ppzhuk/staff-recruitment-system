@@ -16,18 +16,13 @@ public class Main {
     public static void main(String[] args) throws IOException {
 //        RestAPI.start();
 
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                LoginForm.main(null);
-            }
-        });
-
+        SwingUtilities.invokeLater(() -> LoginForm.main(null));
+/*
         Gson gson = new Gson();
         Mark[] arr = gson.fromJson(new FileReader("src\\main\\resources\\marks.json"), Mark[].class);
 
         for (Mark m : arr) {
             System.out.println(m);
-        }
+        }*/
     }
 }
