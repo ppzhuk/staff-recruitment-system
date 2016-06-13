@@ -3,6 +3,7 @@ package recruitment.models;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
+import recruitment.facade.Facade;
 import recruitment.repository.ApplicantRepository;
 import recruitment.repository.EmployerRepository;
 import recruitment.repository.EntityRepository;
@@ -40,10 +41,12 @@ public class BusinessProcessesTests {
         assertNotNull(vacancy);
         assertTrue(vacancy.getId() > 0);
         
-        double mark = manager.getPersonMark(vacancy.getEmployerId());
+        int employerPID = employerRepository.getById(vacancy.getEmployerId()).getPersonId();
+        double mark = manager.getPersonMark(employerPID);
         while (vacancy.getId() < 1 || mark < Mark.SATISFACTORY_MARK) {
             vacancy = manager.getVacancy(++vacancyId);
-            mark = manager.getPersonMark(vacancy.getEmployerId());
+            employerPID = employerRepository.getById(vacancy.getEmployerId()).getPersonId();
+            mark = manager.getPersonMark(employerPID);
         }
         
         assertEquals(vacancy.getId(), vacancyId);
@@ -61,10 +64,12 @@ public class BusinessProcessesTests {
             assertNotNull(r);
             assertTrue(r.getId() > 0);
             
-            mark = manager.getPersonMark(r.getApplicantId());
+            int applicantPID = applicantRepository.getById(r.getApplicantId()).getPersonId();
+            mark = manager.getPersonMark(applicantPID);
             while (r.getId() < 1 || mark < Mark.SATISFACTORY_MARK) {
                 r = manager.getResume(++resumeId);
-                mark = manager.getPersonMark(r.getApplicantId());
+                applicantPID = applicantRepository.getById(r.getApplicantId()).getPersonId();
+                mark = manager.getPersonMark(applicantPID);
             }
 
             assertEquals(r.getId(), resumeId);
