@@ -2,6 +2,7 @@ package recruitment.gui;
 
 import recruitment.facade.Facade;
 import recruitment.facade.FilteringFacade;
+import recruitment.facade.FunctionalityFacade;
 import recruitment.facade.LoginFacade;
 import recruitment.models.Applicant;
 import recruitment.models.Employer;
@@ -45,6 +46,7 @@ public class InterviewForm {
     private FilteringFacade filteringFacade;
     private LoginFacade loginFacade;
     private Facade facade;
+    private FunctionalityFacade funcFacade = new FunctionalityFacade();
     
     InterviewForm(JFrame frame) {
         loginFacade = new LoginFacade();
@@ -131,49 +133,14 @@ public class InterviewForm {
     }
     
     private void setupVisibility() {
-        if (LoginFacade.ROLE == LoginFacade.ROLE_MANAGER) {
-            deleteBtn.setVisible(true);
-            setVisibleApplicantRes();
-            setVisibleEmployerRes();
-        }
-        if (LoginFacade.ROLE == LoginFacade.ROLE_EMPLOYER) {
-            setVisibleEmployerRes();
-        }
-        if (LoginFacade.ROLE == LoginFacade.ROLE_APPLICANT) {
-            setVisibleApplicantRes();
-        }
-        if (interview.isInterviewPassed() && interview.getResultEmployer() == Interview.RESULT_UNDEFINED) {
-            enableEmployerRes();
-            saveBtn.setVisible(true);
-            cancelBtn.setVisible(true);
-        }
-        if (interview.isInterviewPassed() && interview.getResultApplicant() == Interview.RESULT_UNDEFINED) {
-            enableApplicantRes();
-            saveBtn.setVisible(true);
-            cancelBtn.setVisible(true);
-        }
-    }
-    
-    private void setVisibleApplicantRes() {
-        applicantResLabel.setVisible(true);
-        applicantYesRB.setVisible(true);
-        applicantNoRB.setVisible(true);
-    }
+        deleteBtn.setVisible(funcFacade.isRoleManager());
+        applicantResLabel.setVisible(funcFacade.canSetInterviewResApplicant());
+        applicantYesRB.setVisible(funcFacade.canSetInterviewResApplicantRBYES(interview));
+        applicantNoRB.setVisible(funcFacade.canSetInterviewResApplicantRBNO(interview));
+        employerResLabel.setVisible(funcFacade.canSetInterviewResEmployer());
+        employerYesRB.setVisible(funcFacade.canSetInterviewResEmplloyerRBYES(interview));
+        employerNoRB.setVisible(funcFacade.canSetInterviewResEmplloyerRBNO(interview));
 
-    private void setVisibleEmployerRes() {
-        employerResLabel.setVisible(true);
-        employerYesRB.setVisible(true);
-        employerNoRB.setVisible(true);
-    }
-    
-    private void enableApplicantRes() {
-        applicantNoRB.setEnabled(true);
-        applicantYesRB.setEnabled(true);
-    }
-    
-    private void enableEmployerRes() {
-        employerNoRB.setEnabled(true);
-        employerYesRB.setEnabled(true);
     }
     
     public static void main(String[] args) {

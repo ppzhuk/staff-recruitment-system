@@ -2,6 +2,7 @@ package recruitment.gui;
 
 import recruitment.facade.Facade;
 import recruitment.facade.FilteringFacade;
+import recruitment.facade.FunctionalityFacade;
 import recruitment.facade.LoginFacade;
 import recruitment.models.Employer;
 import recruitment.models.Person;
@@ -31,6 +32,7 @@ public class PersonalDataForm {
     private FilteringFacade filteringFacade;
     private LoginFacade loginFacade;
     private Facade facade;
+    private FunctionalityFacade funcFacade = new FunctionalityFacade();
 
 
     public PersonalDataForm(JFrame frame) {
@@ -46,7 +48,7 @@ public class PersonalDataForm {
         okBtn.addActionListener(e -> {
             String errorMessage = "";
             if (fioTF.getText().equals("") || emailTF.getText().equals("") || (
-                    isEmployer() && companyNameTF.getText().equals(""))) {
+                    funcFacade.isRoleEmployer() && companyNameTF.getText().equals(""))) {
                 errorMessage = "Поля со * обязательны к заполнению. ";
             }
             if (!emailTF.getText().contains("@")) {
@@ -62,7 +64,7 @@ public class PersonalDataForm {
             }
             user.setName(fioTF.getText());
             user.setEmail(emailTF.getText());
-            if (isEmployer()) {
+            if (funcFacade.isRoleEmployer()) {
                 Employer empl = (Employer) user;
                 empl.setCompanyName(companyNameTF.getText());
                 empl.setSite(siteTF.getText());
@@ -76,14 +78,10 @@ public class PersonalDataForm {
         });
     }
 
-    private boolean isEmployer() {
-        return LoginFacade.ROLE == LoginFacade.ROLE_EMPLOYER;
-    }
-
     private void setupData() {
         fioTF.setText(user.getName());
         emailTF.setText(user.getEmail());
-        if (isEmployer()) {
+        if (funcFacade.isRoleEmployer()) {
             Employer empl = (Employer) user;
             companyNameTF.setText(empl.getCompanyName());
             descriptionTF.setText(empl.getDescription());
@@ -92,9 +90,7 @@ public class PersonalDataForm {
     }
     
     private void setVisible() {
-        if (isEmployer()) {
-            emplPanel.setVisible(true);
-        }
+        emplPanel.setVisible(funcFacade.isRoleEmployer());
     }
     
     public static void main(String[] args) {

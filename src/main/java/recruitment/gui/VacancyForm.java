@@ -2,6 +2,7 @@ package recruitment.gui;
 
 import recruitment.facade.Facade;
 import recruitment.facade.FilteringFacade;
+import recruitment.facade.FunctionalityFacade;
 import recruitment.facade.LoginFacade;
 import recruitment.models.Mark;
 import recruitment.models.Person;
@@ -39,6 +40,7 @@ public class VacancyForm {
     private FilteringFacade filteringFacade;
     private LoginFacade loginFacade;
     private Facade facade;
+    private FunctionalityFacade funcFacade = new FunctionalityFacade();
 
     public VacancyForm(JFrame frame) {
         loginFacade = new LoginFacade();
@@ -126,19 +128,14 @@ public class VacancyForm {
 
 
     private void setupVisibility() {
-        if (LoginFacade.ROLE == LoginFacade.ROLE_MANAGER) {
-            marksPanel.setVisible(true);
-        }
-        if (LoginFacade.ROLE == LoginFacade.ROLE_EMPLOYER && 
-            vacancy.getEmployerId() == facade.getEmployerIdByPersonId(personId)) {
-            positionTF.setEditable(true);
-            salaryTF.setEditable(true);
-            requirementsTA.setEditable(true);
-            statusCB.setEnabled(vacancy.getStatus() == Vacancy.STATUS_CLOSE);
-            saveBtn.setVisible(true);
-            cancelBtn.setVisible(true);
-            deleteBtn.setVisible(true);
-        }
+        marksPanel.setVisible(funcFacade.isRoleManager());
+        positionTF.setEditable(funcFacade.isCurrentEmployer(vacancy, personId));
+        salaryTF.setEditable(funcFacade.isCurrentEmployer(vacancy, personId));
+        requirementsTA.setEditable(funcFacade.isCurrentEmployer(vacancy, personId));
+        statusCB.setEnabled(funcFacade.canEditVacancyStatus(vacancy, personId));
+        saveBtn.setVisible(funcFacade.isCurrentEmployer(vacancy, personId));
+        cancelBtn.setVisible(funcFacade.isCurrentEmployer(vacancy, personId));
+        deleteBtn.setVisible(funcFacade.isCurrentEmployer(vacancy, personId));
     }
 
     public static void main(String[] args) {

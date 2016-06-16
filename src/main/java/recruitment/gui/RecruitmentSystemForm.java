@@ -1,6 +1,7 @@
 package recruitment.gui;
 
 import recruitment.facade.FilteringFacade;
+import recruitment.facade.FunctionalityFacade;
 import recruitment.facade.LoginFacade;
 import recruitment.models.Applicant;
 import recruitment.models.Employer;
@@ -53,6 +54,7 @@ public class RecruitmentSystemForm {
     private Person user;
     private static int personId;
     private FilteringFacade filteringFacade;
+    private FunctionalityFacade funcFacade = new FunctionalityFacade();
 
     private DefaultListModel<Vacancy> vacancyModel = new DefaultListModel<>();
     private DefaultListModel<Resume> resumeModel = new DefaultListModel<>();
@@ -173,28 +175,12 @@ public class RecruitmentSystemForm {
     }
     
     private void dropVisibility() {
-        switch (LoginFacade.ROLE) {
-            case LoginFacade.ROLE_MANAGER:
-                vacancyCreateButton.setVisible(false);
-                vacancyOwnRB.setVisible(false);
-                resumeOwnRB.setVisible(false);
-                break;
-            case LoginFacade.ROLE_EMPLOYER:
-                interviewCreateButton.setVisible(false);
-                markCreateButton.setVisible(false);
-                resumeOwnRB.setVisible(false);
-                marksPanel.setVisible(false);
-                break;
-            case LoginFacade.ROLE_APPLICANT:
-                interviewCreateButton.setVisible(false);
-                markCreateButton.setVisible(false);
-                vacancyCreateButton.setVisible(false);
-                vacancyOwnRB.setVisible(false);
-                marksPanel.setVisible(false);
-                break;
-            default:
-                throw new IllegalArgumentException("Undefined client role.");
-        }
+        vacancyCreateButton.setVisible(funcFacade.canCreateVacancy());
+        vacancyOwnRB.setVisible(funcFacade.hasOwnVacancies());
+        resumeOwnRB.setVisible(funcFacade.hasOwnResumes());
+        interviewCreateButton.setVisible(funcFacade.canCreateInterview());
+        markCreateButton.setVisible(funcFacade.canCreateMark());
+        marksPanel.setVisible(funcFacade.hasOwnMarkss());
     }
 
     public static void main(String[] args) {

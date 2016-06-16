@@ -2,6 +2,7 @@ package recruitment.gui;
 
 import recruitment.facade.Facade;
 import recruitment.facade.FilteringFacade;
+import recruitment.facade.FunctionalityFacade;
 import recruitment.facade.LoginFacade;
 import recruitment.models.Mark;
 import recruitment.models.Person;
@@ -41,6 +42,8 @@ public class ResumeForm {
     private FilteringFacade filteringFacade;
     private LoginFacade loginFacade;
     private Facade facade;
+
+    private FunctionalityFacade funcFacade = new FunctionalityFacade();
 
     ResumeForm(JFrame frame) {
         loginFacade = new LoginFacade();
@@ -117,20 +120,14 @@ public class ResumeForm {
 
 
     private void setupVisibility() {
-        if (LoginFacade.ROLE == LoginFacade.ROLE_MANAGER) {
-            marksPanel.setVisible(true);
-        }
-        if (LoginFacade.ROLE == LoginFacade.ROLE_APPLICANT &&
-                resume.getApplicantId() == facade.getApplicantIdByPersonId(personId)) {
-            educationTA.setEditable(true);
-            experienceTA.setEditable(true);
-            skillsTA.setEditable(true);
-            descriptionTA.setEditable(true);
-            statusCB.setEnabled(!resume.isInSearch());
-            saveBtn.setVisible(true);
-            cancelBtn.setVisible(true);
-            // deleteBtn.setVisible(true);
-        }
+        marksPanel.setVisible(funcFacade.isRoleManager());
+        educationTA.setEditable(funcFacade.isCurrentApplicant(resume, personId));
+        experienceTA.setEditable(funcFacade.isCurrentApplicant(resume, personId));
+        skillsTA.setEditable(funcFacade.isCurrentApplicant(resume, personId));
+        descriptionTA.setEditable(funcFacade.isCurrentApplicant(resume, personId));
+        statusCB.setEnabled(funcFacade.canEditResumeStatus(resume, personId));
+        saveBtn.setVisible(funcFacade.isCurrentApplicant(resume, personId));
+        cancelBtn.setVisible(funcFacade.isCurrentApplicant(resume, personId));
     }
     
     public static void main(String[] args) {
